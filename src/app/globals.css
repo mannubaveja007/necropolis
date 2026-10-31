@@ -1,3 +1,5 @@
+/* Hallmark · v2.0.0 · necropolis · custom gothic direction (user-specified) · stamp: 2026-10-31 */
+/* Critique: the graveyard is the material — slabs, carved data, fog between the rows. */
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -7,9 +9,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-mono-data);
+  --font-heading: var(--font-display);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -39,6 +41,13 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-alive: var(--alive);
+  --color-restless: var(--restless);
+  --color-haunted: var(--haunted);
+  --color-dead: var(--dead);
+  --color-unknown: var(--unknown);
+  --color-moss: var(--moss);
+  --color-ember: var(--ember);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -49,82 +58,142 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
+  color-scheme: dark;
+  --background: #0b0a12;
+  --foreground: #ece7f3;
+  --card: #12101a;
+  --card-foreground: #ece7f3;
+  --popover: #15121f;
+  --popover-foreground: #ece7f3;
+  --primary: #a78bfa;
+  --primary-foreground: #120f1c;
+  --secondary: #1b1728;
+  --secondary-foreground: #e4ddf2;
+  --muted: #171423;
+  --muted-foreground: #9c94b2;
+  --accent: #221d33;
+  --accent-foreground: #efe9fb;
+  --destructive: #e8757f;
+  --border: #2b2440;
+  --input: #2b2440;
+  --ring: #8f74f2;
+  --chart-1: #a78bfa;
+  --chart-2: #8fe3b5;
+  --chart-3: #dcc27e;
+  --chart-4: #b9a0ff;
+  --chart-5: #8c8599;
+  --radius: 0.375rem;
+  --sidebar: #0f0d17;
+  --sidebar-foreground: #ece7f3;
+  --sidebar-primary: #a78bfa;
+  --sidebar-primary-foreground: #120f1c;
+  --sidebar-accent: #221d33;
+  --sidebar-accent-foreground: #efe9fb;
+  --sidebar-border: #2b2440;
+  --sidebar-ring: #8f74f2;
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* graveyard status palette */
+  --alive: #8fe3b5;
+  --restless: #dcc27e;
+  --haunted: #b9a0ff;
+  --dead: #8c8599;
+  --unknown: #8291ad;
+  --moss: #6f8f5e;
+  --ember: #e8b27a;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
+  html {
+    overflow-x: clip;
+  }
+
   body {
     @apply bg-background text-foreground;
+    overflow-x: clip;
+    font-feature-settings: "kern" 1;
   }
-  html {
-    @apply font-sans;
+
+  ::selection {
+    background: color-mix(in oklab, var(--primary) 35%, transparent);
+    color: var(--foreground);
   }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+}
+
+/* ---- fog: slow, transform-only drift; content stays visible without scripts ---- */
+.fog {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.fog__wisp {
+  position: absolute;
+  width: 70vmax;
+  height: 70vmax;
+  border-radius: 50%;
+  filter: blur(90px);
+  will-change: transform;
+  animation: fog-drift 48s ease-in-out infinite alternate;
+}
+
+.fog__wisp--violet {
+  top: -30vmax;
+  left: -10vmax;
+  background: radial-gradient(circle at center, rgba(167, 139, 250, 0.16), transparent 62%);
+}
+
+.fog__wisp--green {
+  right: -20vmax;
+  bottom: -35vmax;
+  background: radial-gradient(circle at center, rgba(143, 227, 181, 0.1), transparent 62%);
+  animation-duration: 64s;
+  animation-delay: -18s;
+}
+
+.fog__wisp--ash {
+  left: 25%;
+  top: 35%;
+  width: 50vmax;
+  height: 50vmax;
+  background: radial-gradient(circle at center, rgba(236, 231, 243, 0.05), transparent 60%);
+  animation-duration: 80s;
+  animation-delay: -40s;
+}
+
+@keyframes fog-drift {
+  from {
+    transform: translate3d(-4%, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(8%, -6%, 0) scale(1.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fog__wisp {
+    animation: none;
+  }
+}
+
+.display {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.carved {
+  font-family: var(--font-mono-data), ui-monospace, SFMono-Regular, monospace;
+  font-variant-numeric: tabular-nums;
 }
