@@ -101,8 +101,10 @@ export default function Home() {
       {!hasResult ? (
         <section className="flex min-h-[calc(100svh-4rem)] flex-col justify-center py-16 sm:py-20">
           <div className="mx-auto w-full max-w-2xl">
-            <h1 className="display text-[clamp(2.9rem,7vw,4.6rem)] leading-[1.0] text-foreground">
-              Every dependency ends up here.
+            <h1 className="display text-[clamp(2.4rem,7vw,4.6rem)] leading-[1.0] text-foreground">
+              Every dependency
+              <br />
+              ends up here.
             </h1>
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-muted-foreground">
               Paste a package.json; Gemma reads the last rites.
@@ -123,7 +125,7 @@ export default function Home() {
                   }
                 }}
                 placeholder={`{\n  "dependencies": {\n    "express": "^4.19.2"\n  }\n}`}
-                className="carved min-h-56 resize-y rounded-b-none border-0 bg-transparent px-4 py-4 text-[13px] leading-relaxed text-foreground placeholder:text-muted-foreground/40 focus-visible:ring-0 sm:min-h-64 sm:text-sm"
+                className="carved min-h-56 resize-y rounded-b-none border border-muted-foreground/60 bg-transparent px-4 py-4 text-[13px] leading-relaxed text-foreground placeholder:text-muted-foreground/40 focus-visible:ring-0 sm:min-h-64 sm:text-sm"
               />
               <div className="flex flex-col gap-3 border-t border-border/80 px-3 py-3 sm:flex-row sm:items-center sm:justify-between">
                 <p className="px-1 text-xs leading-relaxed text-muted-foreground">
@@ -135,7 +137,7 @@ export default function Home() {
                     variant="ghost"
                     onClick={loadSample}
                     disabled={loading}
-                    className="rounded-md text-muted-foreground hover:text-foreground"
+                    className="h-10 rounded-md text-muted-foreground hover:text-foreground"
                   >
                     Load sample
                   </Button>
@@ -143,7 +145,7 @@ export default function Home() {
                     type="button"
                     onClick={() => void scan()}
                     disabled={loading || raw.trim().length === 0}
-                    className="rounded-md bg-primary px-5 text-primary-foreground hover:bg-primary/85"
+                    className="h-10 rounded-md bg-primary px-5 text-primary-foreground hover:bg-primary/85"
                   >
                     {loading ? "Raising the dead…" : "Raise the dead"}
                   </Button>
@@ -182,7 +184,7 @@ export default function Home() {
                 type="button"
                 variant="outline"
                 onClick={exportReport}
-                className="rounded-md border-border bg-transparent text-foreground hover:bg-accent"
+                className="h-10 rounded-md border-border bg-transparent text-foreground hover:bg-accent"
               >
                 Export graveyard report
               </Button>
@@ -190,7 +192,7 @@ export default function Home() {
                 type="button"
                 variant="ghost"
                 onClick={startOver}
-                className="rounded-md text-muted-foreground hover:text-foreground"
+                className="h-10 rounded-md text-muted-foreground hover:text-foreground"
               >
                 Bury another
               </Button>
