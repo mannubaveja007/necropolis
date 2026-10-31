@@ -20,35 +20,33 @@ export function LoadingGraveyard({ count = 6 }: LoadingGraveyardProps) {
 
       <section
         aria-hidden="true"
-        className="rounded-xl border border-border/70 bg-card/60 p-5 sm:p-6"
+        className="rounded-xl border border-border/70 bg-card/60 px-5 py-4 sm:px-6"
       >
-        <div className="flex flex-wrap items-center justify-between gap-6">
-          <div className="min-w-0">
-            <Skeleton className={`h-3 w-20 ${PULSE}`} />
-            <Skeleton className={`mt-3 h-12 w-28 ${PULSE}`} />
-          </div>
-          <div className="flex items-center gap-4">
-            <Skeleton className={`size-24 rounded-full ${PULSE}`} />
-            <div>
-              <Skeleton className={`h-8 w-16 ${PULSE}`} />
-              <Skeleton className={`mt-2 h-3 w-24 ${PULSE}`} />
-            </div>
-          </div>
-        </div>
+        <div className="flex flex-wrap items-center gap-x-8 gap-y-5">
+          <Skeleton className={`h-10 w-14 ${PULSE}`} />
 
-        <div className="mt-6 grid grid-cols-2 gap-4 border-t border-border/60 pt-5 sm:grid-cols-3 lg:grid-cols-5">
-          {Array.from({ length: 5 }, (_, index) => (
-            <div key={index}>
-              <Skeleton className={`h-3 w-12 ${PULSE}`} />
-              <Skeleton className={`mt-2 h-6 w-10 ${PULSE}`} />
+          <div className="flex flex-wrap items-center gap-6">
+            {Array.from({ length: 4 }, (_, index) => (
+              <div key={index} className="flex items-baseline gap-2">
+                <Skeleton className={`h-3 w-10 ${PULSE}`} />
+                <Skeleton className={`h-5 w-6 ${PULSE}`} />
+              </div>
+            ))}
+          </div>
+
+          <div className="ml-auto flex items-center gap-3">
+            <Skeleton className={`size-16 rounded-full ${PULSE}`} />
+            <div>
+              <Skeleton className={`h-6 w-10 ${PULSE}`} />
+              <Skeleton className={`mt-1 h-3 w-24 ${PULSE}`} />
             </div>
-          ))}
+          </div>
         </div>
       </section>
 
       <div
         aria-hidden="true"
-        className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4"
+        className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 lg:grid-cols-3 xl:grid-cols-4"
       >
         {tombstones.map((index) => (
           <div

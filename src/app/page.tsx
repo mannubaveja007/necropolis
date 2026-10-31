@@ -170,7 +170,7 @@ export default function Home() {
           </div>
         </section>
       ) : (
-        <section ref={resultsRef} className="scroll-mt-24 py-10 sm:py-14" aria-busy={loading}>
+        <section ref={resultsRef} className="scroll-mt-24 py-8 sm:py-12" aria-busy={loading}>
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <h2 className="display text-4xl text-foreground sm:text-5xl">The graveyard</h2>
@@ -199,11 +199,11 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-8">
+          <div className="mt-6">
             <SummaryBar summary={result.summary} />
           </div>
 
-          <div className="mt-8">
+          <div className="mt-6">
             <TombstoneGrid packages={result.packages} onSelect={setSelected} />
           </div>
         </section>

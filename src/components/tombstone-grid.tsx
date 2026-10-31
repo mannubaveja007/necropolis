@@ -13,7 +13,7 @@ export function TombstoneGrid({ packages, onSelect }: TombstoneGridProps) {
   return (
     <ul
       role="list"
-      className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4"
+      className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 lg:grid-cols-3 xl:grid-cols-4"
     >
       {packages.map((pkg, index) => (
         <li
