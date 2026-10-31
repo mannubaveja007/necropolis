@@ -2,7 +2,7 @@
 
 > A dark-gothic dependency graveyard. Paste a `package.json`, and every package rises as a headstone with a registry-verified fate, a Haunting Score, and an epitaph written locally by Gemma through Ollama.
 
-<img src="docs/screenshots/graveyard.png" alt="The graveyard: seven headstones under violet fog, each carved with a package name, version, last publish date and years since publish" width="920" />
+<img src="docs/screenshots/headstones.png" alt="The graveyard: seven headstones under violet fog, each carved with a package name, version, last publish date and years since publish" width="920" />
 
 ---
 
