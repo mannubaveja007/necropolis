@@ -475,6 +475,14 @@
   }
 }
 
+@media (max-width: 640px) {
+  .tomb-card {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 4 / 5;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .tomb-card {
     animation: none;
