@@ -100,6 +100,7 @@ export async function requestEpitaph(
         stream: false,
         format: "json",
         options: { temperature: 0.7 },
+        keep_alive: "30m",
       }),
     });
 
