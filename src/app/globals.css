@@ -213,7 +213,6 @@
   font-family: var(--font-display), ui-serif, Georgia, serif;
   font-weight: 400;
   letter-spacing: -0.015em;
-  text-wrap: balance;
 }
 
 .carved {

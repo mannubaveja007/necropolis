@@ -58,9 +58,6 @@ export function SiteHeader() {
           aria-live="polite"
         >
           <span className="relative flex size-2.5">
-            {online ? (
-              <span className="absolute inset-0 animate-ping rounded-full bg-alive/40" aria-hidden />
-            ) : null}
             <span
               className={[
                 "relative size-2.5 rounded-full transition-colors",
