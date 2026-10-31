@@ -168,7 +168,7 @@ export default function Home() {
           </div>
         </section>
       ) : (
-        <section ref={resultsRef} className="py-10 sm:py-14" aria-busy={loading}>
+        <section ref={resultsRef} className="scroll-mt-24 py-10 sm:py-14" aria-busy={loading}>
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <h2 className="display text-4xl text-foreground sm:text-5xl">The graveyard</h2>
