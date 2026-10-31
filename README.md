@@ -102,7 +102,7 @@ Deprecation outranks age: `request` is 6.7 years old and still **haunted**, not 
 - Portrait on phones, four columns on desktop, and every animation collapses under `prefers-reduced-motion`.
 - Haunted and dead stones reveal the coffin cam on hover. Clicking one opens a centered dialog with the GIF above the epitaph and starts the coffin cam audio.
 - Audio: an original Web Audio loop ships with the app. To use a licensed track instead, drop it at `public/audio/coffin.mp3` (gitignored); the dialog plays that file when present and falls back to the synth.
-- While Gemma writes, the dialog counts the seconds and offers **Use the template instead** after six seconds.
+- The deterministic template renders immediately (under 200 ms); when Gemma answers, usually within a few seconds, its epitaph replaces it in place.
 
 ### 4. Epitaphs Written Locally
 - Clicking a stone sends **only five facts**: name, version, last publish, years since, deprecation message.
@@ -215,5 +215,6 @@ The interface follows a custom kabristan direction built with the **Hallmark v2.
 - **Typography**: Cormorant Garamond for display, Geist for text, JetBrains Mono for carved data such as versions and dates.
 - **Surfaces and motion**: a slow CSS fog (transform only), candle-glow hover, animated ghost glow, all respecting `prefers-reduced-motion`.
 - **Access and craft**: visible focus rings, AA contrast, 40 px controls, no `transition: all`, and no invented metrics or testimonials.
+- **Performance**: generation disables thinking (`think: false`) and caps output at 220 tokens, which took the local 12B from about 90 seconds to about 4 seconds per epitaph.
 
 The skill is vendored at `.agents/skills/hallmark` (MIT, pinned in `skills-lock.json`) with the build recorded in `.hallmark/log.json`.

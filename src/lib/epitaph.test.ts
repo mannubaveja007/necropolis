@@ -97,7 +97,9 @@ describe("requestEpitaph", () => {
       })}\nReturn JSON only.`,
       stream: false,
       format: "json",
-      options: { temperature: 0.7 },
+      think: false,
+      options: { temperature: 0.7, num_predict: 220, num_ctx: 1024 },
+      keep_alive: "30m",
     });
   });
 

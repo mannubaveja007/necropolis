@@ -152,7 +152,7 @@ The interface is built with the open-source **Hallmark** design skill, vendored 
 
 The stones are inline SVG so they can decay with the data: cracks and moss appear only on dead packages, a slow ghost glow only on haunted ones, and hover raises a candlelight wash at the base of the stone. Everything collapses under `prefers-reduced-motion`.
 
-Clicking a haunted stone opens one centered dialog: the coffin cam GIF sits above the epitaph, and a minor-key loop starts immediately. While Gemma writes, the dialog counts the seconds and offers a skip to the deterministic template. The loop is original Web Audio, not a sample of the original meme track, so the repository stays clean of licensed audio. If you own a licensed copy of a track, drop it at `public/audio/coffin.mp3` and the dialog will use that instead.
+Clicking a haunted stone opens one centered dialog: the coffin cam GIF sits above the epitaph, and a minor-key loop starts immediately. The template renders immediately and Gemma's epitaph replaces it a few seconds later. Disabling thinking (`think: false`) and capping the output at 220 tokens took the 12B from about 90 seconds to about 4 seconds. The loop is original Web Audio, not a sample of the original meme track, so the repository stays clean of licensed audio. If you own a licensed copy of a track, drop it at `public/audio/coffin.mp3` and the dialog will use that instead.
 
 I ran Hallmark's `sloplint` render sweep from 320 to 1920 pixels. It reports **0 FAIL, 0 WARN**, with two documented dismissals, the sheet scrim and the wrapping tombstone metadata.
 
