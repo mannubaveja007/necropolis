@@ -76,10 +76,19 @@ src/
 │   ├── layout.tsx           # fonts, header and footer shell
 │   └── page.tsx             # graveyard UI
 ├── components/
+│   ├── epitaph-panel.tsx    # sheet, epitaph request, cache and fallback banner
+│   ├── loading-graveyard.tsx # summary and grid skeletons
+│   ├── summary-bar.tsx      # counts and Haunting Score ring
 │   ├── site-header.tsx      # Ollama status indicator
 │   ├── site-footer.tsx      # privacy note
+│   ├── tombstone.tsx        # SVG headstone with cracks, moss and ghost glow
+│   ├── tombstone-grid.tsx   # responsive headstone grid
 │   └── ui/                  # shadcn primitives
 └── lib/
+    ├── epitaph.ts           # Ollama prompt, in-memory cache, template fallback
+    ├── epitaph.test.ts      # epitaph tests
+    ├── npm.ts               # registry scan, statuses and Haunting Score
+    ├── npm.test.ts          # scan tests
     ├── report.ts            # Markdown report builder
     ├── report.test.ts       # report tests
     ├── sample.ts            # sample package.json and 40-package cap
