@@ -18,6 +18,7 @@ const styles = {
   content: "tomb-content",
   status: "tomb-status",
   statusWord: "tomb-status-word",
+  statusIcon: "tomb-status-icon",
   name: "tomb-name",
   meta: "tomb-meta",
   metaRow: "tomb-meta-row",
@@ -113,7 +114,41 @@ export function Tombstone({ pkg, index, onSelect }: TombstoneProps) {
 
       <span className={styles.content}>
         <span className={styles.status}>
-          <span className={styles.statusWord}>{STATUS_LABEL[pkg.status]}</span>
+          <span className={styles.statusWord}>
+            {isHaunted ? (
+              <svg
+                className={styles.statusIcon}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.6}
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M12 3c3.9 0 7 3.1 7 7v10l-2.3-1.7L14.4 20 12 18.3 9.6 20l-2.3-1.7L5 20V10c0-3.9 3.1-7 7-7Z" />
+                <circle cx="9.5" cy="10" r="1" fill="currentColor" stroke="none" />
+                <circle cx="14.5" cy="10" r="1" fill="currentColor" stroke="none" />
+              </svg>
+            ) : null}
+            {isDead ? (
+              <svg
+                className={styles.statusIcon}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.6}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M12 3a8 8 0 0 0-8 8c0 2.7 1.4 4.7 3.8 5.8V21h2.1v-2h4.2v2h2.1v-4.2C18.6 15.7 20 13.7 20 11a8 8 0 0 0-8-8Z" />
+                <circle cx="9" cy="10.5" r="1.2" fill="currentColor" stroke="none" />
+                <circle cx="15" cy="10.5" r="1.2" fill="currentColor" stroke="none" />
+                <path d="M12 13.2 11 15h2l-1-1.8Z" fill="currentColor" stroke="none" />
+              </svg>
+            ) : null}
+            {STATUS_LABEL[pkg.status]}
+          </span>
         </span>
 
         <span className={`display min-w-0 ${styles.name}`}>{pkg.name}</span>

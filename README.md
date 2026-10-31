@@ -1,8 +1,8 @@
-# Necropolis 🪦
+# Kabristan 🪦
 
-> A dark-gothic dependency graveyard. Paste a `package.json`, and every package rises as a headstone with a registry-verified fate, a Haunting Score, and an epitaph written locally by Gemma through Ollama.
+> A quiet kabristan for your dependencies. Paste a `package.json`, and every package rises as a headstone with a registry-verified fate, a Haunting Score, and an epitaph written locally by Gemma through Ollama.
 
-<img src="docs/screenshots/headstones.png" alt="The graveyard: seven headstones under violet fog, each carved with a package name, version, last publish date and years since publish" width="920" />
+<img src="docs/screenshots/headstones.png" alt="The graveyard: seven headstones under emerald mist, each carved with a package name, version, last publish date and years since publish" width="920" />
 
 ---
 
@@ -48,7 +48,7 @@
 ## Project Structure
 
 ```text
-Necropolis/
+Kabristan/
 ├── src/
 │   ├── app/
 │   │   ├── api/                      # scan, epitaph and health route handlers
@@ -90,7 +90,7 @@ Necropolis/
 | --- | --- | --- |
 | `alive` | Latest publish under 1 year ago | moonlit green |
 | `restless` | 1–2 years ago | pale gold |
-| `haunted` | Registry returns a deprecation message | violet, slow ghost glow |
+| `haunted` | Registry returns a deprecation message | spirit violet, slow ghost glow |
 | `dead` | More than 2 years since the latest publish | ash, cracks and moss |
 | `unknown` | 404, timeout or unreachable registry | cold slate, dashed outline |
 
@@ -206,9 +206,9 @@ The design sweep is clean at 320–1920 px: **0 FAIL, 0 WARN**, with two recorde
 
 ## Design System & Hallmark Principles
 
-The interface follows a custom dark-gothic direction built with the **Hallmark v2.0.0** skill:
+The interface follows a custom kabristan direction built with the **Hallmark v2.0.0** skill: a quiet South Asian graveyard at dusk, with ghost and bone marks.
 
-- **Tokens only**: near-black `#0b0a12`, violet `#a78bfa`, moonlit green `#8fe3b5`; every colour flows through a semantic token.
+- **Tokens only**: green-black `#0a0d0b`, marble `#ece5d4`, emerald `#86d6a8`, brass `#d9bd80`, spirit violet `#b8b0e0` only for haunted stones.
 - **Typography**: Cormorant Garamond for display, Geist for text, JetBrains Mono for carved data such as versions and dates.
 - **Surfaces and motion**: a slow CSS fog (transform only), candle-glow hover, animated ghost glow, all respecting `prefers-reduced-motion`.
 - **Access and craft**: visible focus rings, AA contrast, 40 px controls, no `transition: all`, and no invented metrics or testimonials.

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Ghost } from "lucide-react";
 
 import type { HealthResponse } from "@/lib/types";
 
@@ -42,10 +43,15 @@ export function SiteHeader() {
         <Link
           href="/"
           className="group flex items-baseline gap-3 rounded-sm focus-visible:outline-none"
-          aria-label="Necropolis, back to the gate"
+          aria-label="Kabristan, back to the gate"
         >
+          <Ghost
+            className="size-5 shrink-0 self-center text-primary"
+            strokeWidth={1.4}
+            aria-hidden
+          />
           <span className="display text-2xl leading-none text-foreground sm:text-[1.7rem]">
-            Necropolis
+            Kabristan
           </span>
           <span className="hidden text-sm text-muted-foreground sm:inline">
             a graveyard for dependencies

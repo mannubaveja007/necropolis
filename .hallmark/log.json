@@ -14,8 +14,8 @@
   ],
   "signature": "headstones that crack and grow moss as dependencies decay",
   "waived": [],
-  "prompt": "Necropolis: package.json graveyard with Ollama epitaphs",
-  "entry": "necropolis",
+  "prompt": "Kabristan: package.json graveyard with Ollama epitaphs",
+  "entry": "kabristan",
   "date": "2026-10-31",
   "mode": "build"
  }

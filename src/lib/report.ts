@@ -103,7 +103,7 @@ export function buildMarkdownReport({
   epitaphs,
   generatedAt,
 }: MarkdownReportInput): string {
-  const blocks: string[] = ["# Necropolis graveyard report"];
+  const blocks: string[] = ["# Kabristan graveyard report"];
 
   if (generatedAt) {
     const timestamp = generatedAt.getTime();

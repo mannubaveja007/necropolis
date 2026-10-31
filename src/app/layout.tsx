@@ -27,11 +27,11 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Necropolis — a graveyard for your dependencies",
+  title: "Kabristan — a graveyard for your dependencies",
   description:
     "Turn a package.json into a haunted graveyard. Every dependency gets a tombstone, a status, and an epitaph written by Gemma through Ollama.",
   openGraph: {
-    title: "Necropolis — a graveyard for your dependencies",
+    title: "Kabristan — a graveyard for your dependencies",
     description:
       "Paste a package.json, raise the dead, and read the epitaphs of your dependencies.",
     type: "website",

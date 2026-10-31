@@ -2,21 +2,21 @@
 
 ## What I Built
 
-**Necropolis** turns a `package.json` into a graveyard.
+**Kabristan** turns a `package.json` into a graveyard.
 
 Paste a manifest, press **Raise the dead**, and every dependency rises as an SVG headstone. Each stone is carved with the package name, the version you asked for, the real latest publish date from the npm registry, and how many years it has been resting. The stones are coloured by fate:
 
 - **alive**, published within the last year, moonlit green
 - **restless**, one to two years, pale gold
-- **haunted**, the registry returns a deprecation notice, violet with a slow ghost glow
+- **haunted**, the registry returns a deprecation notice, spirit violet with a slow ghost glow
 - **dead**, more than two years since the last publish, ash grey with cracks and moss
 - **unknown**, a 404 or an unreachable registry, cold slate with a dashed outline
 
 A summary band counts the five fates and computes a **Haunting Score** from 0 to 100. Click any stone and a local Gemma model, served through Ollama, writes a two-sentence epitaph and a one-sentence maintenance warning from five registry facts. The whole yard exports as a Markdown report.
 
-![Necropolis graveyard: seven headstones in a dark violet fog, with version, last publish and years since publish carved into each stone](https://raw.githubusercontent.com/mannubaveja007/necropolis/main/docs/screenshots/headstones.png)
+![Kabristan graveyard: seven headstones in a dark emerald mist, with version, last publish and years since publish carved into each stone](https://raw.githubusercontent.com/mannubaveja007/kabristan/main/docs/screenshots/headstones.png)
 
-My reading of **Ghost in the Machine** is literal: the machine is the dependency tree, and the ghosts are the packages nobody maintains any more. A `package.json` is a burial register we keep adding names to. Necropolis just makes the register visible, and lets a local model speak for the dead.
+My reading of **Ghost in the Machine** is literal: the machine is the dependency tree, and the ghosts are the packages nobody maintains any more. A `package.json` is a burial register we keep adding names to. Kabristan just makes the register visible, and lets a local model speak for the dead.
 
 It felt right to ship it on Halloween, the night before Día de los Muertos.
 
@@ -25,8 +25,8 @@ It felt right to ship it on Halloween, the night before Día de los Muertos.
 There is no hosted demo, and that is deliberate: the model runs on your machine, not mine.
 
 ```bash
-git clone https://github.com/mannubaveja007/necropolis.git
-cd necropolis
+git clone https://github.com/mannubaveja007/kabristan.git
+cd kabristan
 npm install
 ollama pull gemma3:4b
 ollama serve
@@ -35,17 +35,17 @@ npm run dev
 
 Open `http://localhost:3000`, press **Load sample**, then **Raise the dead**. The sample includes `request`, `node-sass`, `left-pad`, `moment`, `express`, `react` and `typescript`, which is enough to fill the yard with three haunted stones and four living ones.
 
-![The landing page: a package.json textarea, a Load sample button and a Raise the dead button](https://raw.githubusercontent.com/mannubaveja007/necropolis/main/docs/screenshots/landing.png)
+![The landing page: a package.json textarea, a Load sample button and a Raise the dead button](https://raw.githubusercontent.com/mannubaveja007/kabristan/main/docs/screenshots/landing.png)
 
-![The epitaph panel: a Gemma-written epitaph for left-pad and a maintenance warning](https://raw.githubusercontent.com/mannubaveja007/necropolis/main/docs/screenshots/panel.png)
+![The epitaph panel: a Gemma-written epitaph for left-pad and a maintenance warning](https://raw.githubusercontent.com/mannubaveja007/kabristan/main/docs/screenshots/panel.png)
 
 ## Code
 
 The repository is public and self-contained:
 
-**https://github.com/mannubaveja007/necropolis**
+**https://github.com/mannubaveja007/kabristan**
 
-{% embed https://github.com/mannubaveja007/necropolis %}
+{% embed https://github.com/mannubaveja007/kabristan %}
 
 The app is Next.js 16 on the App Router, with TypeScript, Tailwind CSS 4, and shadcn/ui primitives. The interesting parts are small and readable:
 
@@ -63,7 +63,7 @@ npm run build
 
 ## Architecture
 
-Necropolis is one Next.js app with three route handlers. The browser only renders; the registry and the model are both called server-side.
+Kabristan is one Next.js app with three route handlers. The browser only renders; the registry and the model are both called server-side.
 
 ```text
 ┌──────────────────────────────────────────────────────────────────┐
@@ -111,7 +111,7 @@ Necropolis is one Next.js app with three route handlers. The browser only render
 The project is deliberately small and ordered by responsibility:
 
 ```text
-Necropolis/
+Kabristan/
 ├── src/
 │   ├── app/
 │   │   ├── api/                    # scan, epitaph, health
@@ -148,7 +148,7 @@ My first version used a 60-second timeout. The first local 12B generation ran pa
 
 ### The design
 
-The interface is built with the open-source **Hallmark** design skill, vendored in the repository. It is a dark-gothic direction: near-black `#0b0a12`, violet and moonlit-green accents, Cormorant Garamond for display, Geist for text, and JetBrains Mono for carved data such as versions and dates.
+The interface is built with the open-source **Hallmark** design skill, vendored in the repository. It is a kabristan direction: green-black `#0a0d0b`, marble `#ece5d4`, an emerald signal `#86d6a8`, brass for the restless, and spirit violet kept only for haunted stones. Cormorant Garamond for display, Geist for text, JetBrains Mono for carved data.
 
 The stones are inline SVG so they can decay with the data: cracks and moss appear only on dead packages, a slow ghost glow only on haunted ones, and hover raises a candlelight wash at the base of the stone. Everything collapses under `prefers-reduced-motion`.
 
@@ -156,7 +156,7 @@ I ran Hallmark's `sloplint` render sweep from 320 to 1920 pixels. It reports **0
 
 ### The agents
 
-I built Necropolis with three parallel subagents in the DeepSeek Harness, each in its own git worktree:
+I built Kabristan with three parallel subagents in the DeepSeek Harness, each in its own git worktree:
 
 - one for the API routes and the registry logic
 - one for the graveyard UI
@@ -176,7 +176,7 @@ Three things, all fixed and committed:
 
 ## Why Does Open Innovation Matter?
 
-Necropolis is possible because the model is a file on my disk, not a service.
+Kabristan is possible because the model is a file on my disk, not a service.
 
 That changes the privacy story completely. Dependency names are the most sensitive part of a private codebase: they reveal what you build, which vendors you depend on, and where you are behind. With a hosted model, every click on a stone would ship that list to someone else's server. With Ollama, the names go to the public npm registry, which already has them, and the five facts go to a model running on the same laptop. My footer says exactly that, and it is true.
 

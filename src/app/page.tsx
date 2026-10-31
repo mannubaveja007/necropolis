@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Ghost } from "lucide-react";
 
 import { EpitaphPanel } from "@/components/epitaph-panel";
 import { LoadingGraveyard } from "@/components/loading-graveyard";
@@ -89,7 +90,7 @@ export default function Home() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `necropolis-report-${new Date().toISOString().slice(0, 10)}.md`;
+    link.download = `kabristan-report-${new Date().toISOString().slice(0, 10)}.md`;
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -99,8 +100,13 @@ export default function Home() {
   return (
     <div className="mx-auto w-full max-w-[85rem] px-5 sm:px-8">
       {!hasResult ? (
-        <section className="flex min-h-[calc(100svh-4rem)] flex-col justify-center py-16 sm:py-20">
-          <div className="mx-auto w-full max-w-2xl">
+        <section className="relative flex min-h-[calc(100svh-4rem)] flex-col justify-center py-16 sm:py-20">
+          <Ghost
+            className="pointer-events-none absolute left-1/2 top-10 z-0 size-[24rem] -translate-x-1/2 text-primary opacity-[0.05] sm:size-[30rem]"
+            strokeWidth={0.7}
+            aria-hidden
+          />
+          <div className="relative z-10 mx-auto w-full max-w-2xl">
             <h1 className="display text-[clamp(2.4rem,7vw,4.6rem)] leading-[1.0] text-foreground">
               Every dependency
               <br />
