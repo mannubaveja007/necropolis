@@ -7,12 +7,13 @@ import { Volume2, VolumeX, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { templateEpitaph } from "@/lib/epitaph";
 import { startCoffinSong, type CoffinSong } from "@/lib/coffin-song";
 import type { Epitaph, ScannedPackage } from "@/lib/types";
 
 type PanelState =
   | { status: "loading" }
-  | { status: "ready"; epitaph: Epitaph }
+  | { status: "ready"; epitaph: Epitaph; pending?: boolean }
   | { status: "error"; message: string };
 
 interface EpitaphPanelProps {
@@ -131,9 +132,17 @@ function EpitaphContent({
   const { name, version, lastPublish, yearsSince, deprecatedMessage } = pkg;
   const cacheKey = `${name}@${version}`;
 
+  const facts = { name, version, lastPublish, yearsSince, deprecatedMessage };
+
   const [state, setState] = useState<PanelState>(() => {
     const cached = cache.current.get(cacheKey);
-    return cached ? { status: "ready", epitaph: cached } : { status: "loading" };
+    return cached
+      ? { status: "ready", epitaph: cached, pending: false }
+      : {
+          status: "ready",
+          epitaph: templateEpitaph(facts),
+          pending: true,
+        };
   });
   const [attempt, setAttempt] = useState(0);
   const [elapsed, setElapsed] = useState(0);
@@ -178,11 +187,12 @@ function EpitaphContent({
 
         cache.current.set(cacheKey, epitaph);
         onEpitaphRef.current?.(epitaph);
-        setState({ status: "ready", epitaph });
+        setState({ status: "ready", epitaph, pending: false });
       } catch (error) {
         if (!live || controller.signal.aborted) return;
         if (error instanceof Error && error.name === "AbortError") return;
-        setState({ status: "error", message: describeError(error) });
+        // Keep the template already on screen; the model is simply unavailable.
+        setState({ status: "ready", epitaph: templateEpitaph(facts), pending: false });
       }
     }
 
@@ -205,15 +215,18 @@ function EpitaphContent({
   ]);
 
   useEffect(() => {
-    if (state.status !== "loading") return;
+    const working =
+      state.status === "loading" ||
+      (state.status === "ready" && state.pending === true);
+    if (!working) return;
     const timer = window.setInterval(() => setElapsed((value) => value + 1), 1000);
     return () => window.clearInterval(timer);
-  }, [state.status]);
+  }, [state]);
 
   function retry() {
     cache.current.delete(cacheKey);
     setElapsed(0);
-    setState({ status: "loading" });
+    setState({ status: "ready", epitaph: templateEpitaph(facts), pending: true });
     setAttempt((value) => value + 1);
   }
 
@@ -301,7 +314,13 @@ function EpitaphContent({
 
         {state.status === "ready" ? (
           <div className="flex flex-col gap-6">
-            {state.epitaph.source === "template" ? (
+            {state.pending ? (
+              <p className="text-xs text-muted-foreground">
+                Asking Gemma · {elapsed}s · showing the template meanwhile.
+              </p>
+            ) : null}
+
+            {state.epitaph.source === "template" && !state.pending ? (
               <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-restless/40 bg-restless/5 p-3">
                 <p className="text-sm text-restless">
                   Ghost offline: template epitaph
@@ -336,9 +355,11 @@ function EpitaphContent({
       {state.status === "ready" ? (
         <footer className="shrink-0 border-t border-border/70 p-5 sm:p-6">
           <p className="text-xs text-muted-foreground">
-            {state.epitaph.source === "ollama"
-              ? "Written by Gemma via Ollama"
-              : "Template epitaph"}
+            {state.pending
+              ? "Asking Gemma…"
+              : state.epitaph.source === "ollama"
+                ? "Written by Gemma via Ollama"
+                : "Template epitaph"}
           </p>
         </footer>
       ) : null}
