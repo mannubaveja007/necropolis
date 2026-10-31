@@ -205,11 +205,11 @@ The moment that landed for me was `left-pad`.
 
 This is a package that was famously unpublished in 2016 and broke builds across the internet. A decade later it is deprecated, eight and a half years past its last release, and the model wrote this:
 
-> left-pad sleeps after 8.6 years. Its final publication was 2018-04-09.
+> left-pad lies still in the soil of the past, left behind by the march of time. It has rested for 8.6 years since its final publication on 2018-04-09.
 
 And this warning:
 
-> Use String.prototype.padStart() as the successor.
+> use String.prototype.padStart()
 
 It is not profound. It is just accurate, plain, and a little sad, which is exactly what a Kabristan is for. A local model, given nothing but five facts, looked at a package that once took down half the JavaScript ecosystem and quietly noted that `padStart` won.
 
