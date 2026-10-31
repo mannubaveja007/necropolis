@@ -135,6 +135,7 @@ function EpitaphContent({
     return cached ? { status: "ready", epitaph: cached } : { status: "loading" };
   });
   const [attempt, setAttempt] = useState(0);
+  const [elapsed, setElapsed] = useState(0);
   const onEpitaphRef = useRef(onEpitaph);
 
   useEffect(() => {
@@ -202,10 +203,42 @@ function EpitaphContent({
     yearsSince,
   ]);
 
+  useEffect(() => {
+    if (state.status !== "loading") return;
+    const timer = window.setInterval(() => setElapsed((value) => value + 1), 1000);
+    return () => window.clearInterval(timer);
+  }, [state.status]);
+
   function retry() {
     cache.current.delete(cacheKey);
+    setElapsed(0);
     setState({ status: "loading" });
     setAttempt((value) => value + 1);
+  }
+
+  async function useTemplate() {
+    try {
+      const response = await fetch("/api/epitaph", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          version,
+          lastPublish,
+          yearsSince,
+          deprecatedMessage,
+          template: true,
+        }),
+      });
+      if (!response.ok) return;
+      const epitaph = parseEpitaph(await response.json(), name, version);
+      if (!epitaph) return;
+      cache.current.set(cacheKey, epitaph);
+      onEpitaphRef.current?.(epitaph);
+      setState({ status: "ready", epitaph });
+    } catch {
+      // The skeleton stays; the main request may still land.
+    }
   }
 
   return (
@@ -225,7 +258,25 @@ function EpitaphContent({
       </header>
 
       <div className="flex-1 overflow-y-auto p-5 sm:p-6">
-        {state.status === "loading" ? <EpitaphSkeleton /> : null}
+        {state.status === "loading" ? (
+          <div className="flex flex-col gap-4">
+            <EpitaphSkeleton />
+            <p className="text-xs leading-relaxed text-muted-foreground">
+              Gemma is reading the stones · {elapsed}s. A local 12B model can take about a minute.
+            </p>
+            {elapsed >= 6 ? (
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="self-start"
+                onClick={() => void useTemplate()}
+              >
+                Use the template instead
+              </Button>
+            ) : null}
+          </div>
+        ) : null}
 
         {state.status === "error" ? (
           <div
@@ -418,7 +469,7 @@ export function EpitaphPanel({ pkg, onClose, onEpitaph }: EpitaphPanelProps) {
         {haunted ? (
           <div className="relative border-b border-border/70">
             <img
-              src="/memes/coffin-dance.webp"
+              src="/memes/coffin-dance.gif"
               alt="The coffin dance meme, played for a haunted package"
               className="max-h-56 w-full object-cover"
             />

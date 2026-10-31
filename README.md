@@ -38,7 +38,7 @@
 | Method | Route | Purpose |
 | --- | --- | --- |
 | `POST` | `/api/scan` | Body `{ packageJson }`; returns `{ packages, summary }` |
-| `POST` | `/api/epitaph` | Body `{ name, version, lastPublish, yearsSince, deprecatedMessage }`; returns `{ epitaph, warning, source }` |
+| `POST` | `/api/epitaph` | Body `{ name, version, lastPublish, yearsSince, deprecatedMessage }`; returns `{ epitaph, warning, source }`. Send `template: true` to get the deterministic fallback immediately. |
 | `GET` | `/api/health` | Returns `{ ollama, model, url, latencyMs }` for the header dot |
 
 > **Privacy.** Only package names leave your machine, to the public npm registry. Epitaph facts go only to your local Ollama instance.
@@ -102,6 +102,7 @@ Deprecation outranks age: `request` is 6.7 years old and still **haunted**, not 
 - Portrait on phones, four columns on desktop, and every animation collapses under `prefers-reduced-motion`.
 - Haunted and dead stones reveal the coffin cam on hover. Clicking one opens a centered dialog with the GIF above the epitaph and starts the coffin cam audio.
 - Audio: an original Web Audio loop ships with the app. To use a licensed track instead, drop it at `public/audio/coffin.mp3` (gitignored); the dialog plays that file when present and falls back to the synth.
+- While Gemma writes, the dialog counts the seconds and offers **Use the template instead** after six seconds.
 
 ### 4. Epitaphs Written Locally
 - Clicking a stone sends **only five facts**: name, version, last publish, years since, deprecation message.

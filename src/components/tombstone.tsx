@@ -115,7 +115,7 @@ export function Tombstone({ pkg, index, onSelect }: TombstoneProps) {
 
       {isHaunted || isDead ? (
         <img
-          src="/memes/coffin-dance.webp"
+          src="/memes/coffin-dance.gif"
           alt=""
           aria-hidden="true"
           className={styles.meme}

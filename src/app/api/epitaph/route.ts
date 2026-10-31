@@ -48,6 +48,10 @@ export async function POST(req: Request): Promise<Response> {
         : null,
   };
 
+  if (body.template === true) {
+    return Response.json(templateEpitaph(facts));
+  }
+
   let epitaph: Epitaph;
   try {
     epitaph = await epitaphFor(facts);
