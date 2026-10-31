@@ -37,8 +37,8 @@ export function SiteHeader() {
   const detail = known && health?.model ? `model ${health.model}` : "no model response";
 
   return (
-    <header className="sticky top-0 z-30 border-b border-border/70 bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
+    <header className="sticky top-0 z-30 border-b border-border/70 bg-background">
+      <div className="mx-auto flex h-16 w-full max-w-[85rem] items-center justify-between gap-4 px-5 sm:px-8">
         <Link
           href="/"
           className="group flex items-baseline gap-3 rounded-sm focus-visible:outline-none"
