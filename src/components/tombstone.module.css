@@ -1,0 +1,274 @@
+.card {
+  --status-color: var(--unknown);
+  --stone-fill: color-mix(in oklab, var(--status-color) 5%, var(--background));
+  --stone-stroke: color-mix(in oklab, var(--status-color) 38%, var(--border));
+  --stone-inner: color-mix(in oklab, var(--status-color) 22%, transparent);
+
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  min-height: 15rem;
+  height: 100%;
+  padding: 3.25rem 1.25rem 2.75rem;
+  border: 0;
+  border-radius: 0.75rem;
+  background: transparent;
+  color: var(--foreground);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 280ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  animation: stone-rise 460ms cubic-bezier(0.16, 0.84, 0.3, 1) backwards;
+  animation-delay: var(--enter-delay, 0ms);
+}
+
+.card[data-status="alive"] {
+  --status-color: var(--alive);
+  --stone-fill: color-mix(in oklab, var(--alive) 7%, var(--card));
+  --stone-stroke: color-mix(in oklab, var(--alive) 58%, var(--border));
+  --stone-inner: color-mix(in oklab, var(--alive) 48%, transparent);
+}
+
+.card[data-status="restless"] {
+  --status-color: var(--restless);
+  --stone-fill: color-mix(in oklab, var(--restless) 7%, var(--card));
+  --stone-stroke: color-mix(in oklab, var(--restless) 58%, var(--border));
+  --stone-inner: color-mix(in oklab, var(--restless) 48%, transparent);
+}
+
+.card[data-status="haunted"] {
+  --status-color: var(--haunted);
+  --stone-fill: color-mix(in oklab, var(--haunted) 8%, var(--card));
+  --stone-stroke: color-mix(in oklab, var(--haunted) 52%, var(--border));
+  --stone-inner: color-mix(in oklab, var(--haunted) 34%, transparent);
+}
+
+.card[data-status="dead"] {
+  --status-color: var(--dead);
+  --stone-fill: color-mix(in oklab, var(--dead) 9%, var(--card));
+  --stone-stroke: color-mix(in oklab, var(--dead) 52%, var(--border));
+  --stone-inner: color-mix(in oklab, var(--dead) 24%, transparent);
+}
+
+.card[data-status="unknown"] {
+  --status-color: var(--unknown);
+  --stone-fill: color-mix(in oklab, var(--unknown) 4%, var(--background));
+  --stone-stroke: color-mix(in oklab, var(--unknown) 32%, var(--border));
+  --stone-inner: color-mix(in oklab, var(--unknown) 30%, transparent);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 4px;
+}
+
+.card:focus-visible .slab {
+  filter:
+    drop-shadow(0 0 10px color-mix(in oklab, var(--ember) 32%, transparent))
+    drop-shadow(0 0 26px color-mix(in oklab, var(--primary) 22%, transparent));
+}
+
+@media (hover: hover) {
+  .card:hover .slab {
+    filter:
+      drop-shadow(0 0 10px color-mix(in oklab, var(--ember) 32%, transparent))
+      drop-shadow(0 0 26px color-mix(in oklab, var(--primary) 22%, transparent));
+  }
+}
+
+.card:active {
+  transform: translateY(0);
+}
+
+.slab {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  transition: filter 280ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.body {
+  fill: var(--stone-fill);
+  stroke: var(--stone-stroke);
+  stroke-width: 1.5;
+}
+
+.inner {
+  fill: none;
+  stroke: var(--stone-inner);
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+
+.card[data-status="unknown"] .inner {
+  stroke-dasharray: 5 9;
+}
+
+.plinth {
+  fill: color-mix(in oklab, var(--status-color) 12%, var(--background));
+  stroke: var(--stone-stroke);
+  stroke-width: 1.5;
+}
+
+.ground {
+  fill: color-mix(in oklab, var(--status-color) 10%, transparent);
+}
+
+.crack {
+  fill: none;
+  stroke: color-mix(in oklab, var(--foreground) 32%, transparent);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.moss {
+  fill: color-mix(in oklab, var(--moss) 55%, transparent);
+  opacity: 0.55;
+}
+
+.ghostGlow {
+  fill: color-mix(in oklab, var(--haunted) 36%, transparent);
+  filter: blur(22px);
+  animation: ghost-pulse 9s ease-in-out infinite;
+}
+
+.wisp {
+  fill: none;
+  stroke: color-mix(in oklab, var(--haunted) 55%, transparent);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  filter: blur(1px);
+  animation: wisp-drift 11s ease-in-out infinite alternate;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.status {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.statusWord {
+  color: var(--status-color);
+  font-size: 0.6875rem;
+  line-height: 1.2;
+}
+
+.name {
+  min-width: 0;
+  color: var(--foreground);
+  font-size: clamp(1.35rem, 1.1rem + 1vw, 1.7rem);
+  line-height: 1.05;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.meta {
+  display: grid;
+  gap: 0.25rem;
+  margin-top: auto;
+  padding-top: 0.8rem;
+  border-top: 1px solid color-mix(in oklab, var(--status-color) 20%, var(--border));
+}
+
+.metaRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.label {
+  flex: none;
+  color: var(--muted-foreground);
+  font-size: 0.6875rem;
+  line-height: 1.4;
+}
+
+.value {
+  min-width: 0;
+  color: color-mix(in oklab, var(--foreground) 82%, transparent);
+  font-family: var(--font-mono-data), ui-monospace, SFMono-Regular, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  text-align: right;
+  overflow-wrap: break-word;
+}
+
+@keyframes stone-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes ghost-pulse {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@keyframes wisp-drift {
+  from {
+    opacity: 0.35;
+    transform: translate3d(-4px, 2px, 0);
+  }
+
+  to {
+    opacity: 0.7;
+    transform: translate3d(10px, -8px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+    transition: none;
+  }
+
+  .card:hover,
+  .card:focus-visible,
+  .card:active {
+    transform: none;
+  }
+
+  .slab {
+    transition: none;
+  }
+
+  .ghostGlow,
+  .wisp {
+    animation: none;
+  }
+}
