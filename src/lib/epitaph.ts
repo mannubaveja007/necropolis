@@ -7,7 +7,7 @@ export const SYSTEM_PROMPT =
 
 // A local generation can take ~45s, so allow a full minute before falling
 // back; the registry fetch keeps its much shorter 5s budget.
-const OLLAMA_TIMEOUT_MS = 60_000;
+const OLLAMA_TIMEOUT_MS = Number(process.env.OLLAMA_TIMEOUT_MS) || 180_000;
 const MAX_FIELD_CHARS = 600;
 
 const DEFAULT_OLLAMA_URL = "http://localhost:11434/api/generate";
@@ -46,10 +46,10 @@ export function templateEpitaph(facts: EpitaphRequest): Epitaph {
     : "an unrecorded date";
   const age =
     facts.yearsSince === null
-      ? ""
+      ? " The years since its last release are unrecorded."
       : ` It has rested ${formatYears(facts.yearsSince)} years since its last release.`;
 
-  const epitaph = `Here lies ${facts.name} ${facts.version}, last published on ${publishDate}.${age} Its stone is all that remains.`;
+  const epitaph = `Here lies ${facts.name} ${facts.version}, last published on ${publishDate}.${age}`;
 
   const warning = facts.deprecatedMessage
     ? `The maintainers marked this package deprecated: ${facts.deprecatedMessage}`
