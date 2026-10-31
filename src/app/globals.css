@@ -1,6 +1,8 @@
 /* Hallmark · shape: Graveyard workbench · genre: atmospheric · theme: custom · job: try · idea: "A package.json is read as a burial register, each dependency given a stone and a eulogy." · vibe: "near-black crypt, violet fog, moonlit green"
  * paper: #0b0a12 · accent: #a78bfa · display: Cormorant Garamond · body: Geist · hero: centred register over the package.json slab · nav: wordmark left, live Ollama state right · footer: privacy line and two registry links · imagery: none; headstones and carved data carry the page · signature: the SVG headstone row that cracks and grows moss as dependencies decay
  * axes: dark/roman-serif/cool · posture: Settled · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · dismissed 29 · the sheet scrim is the modal surface, not a decorative bloom */
+/* Hallmark · dismissed 49 · the tombstone meta wraps by design; the accessible name stays the package */
 /* Hallmark · pre-emit critique: P4 H4 E4 S3 R4 V3 · weakest: S, a graveyard of dependencies could be any devtool; led with real registry facts carved on every stone */
 @import "tailwindcss";
 @import "tw-animate-css";
