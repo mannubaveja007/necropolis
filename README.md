@@ -25,6 +25,7 @@ Both variables are optional. Copy `.env.example` to `.env.local` to override the
 | --- | --- | --- |
 | `OLLAMA_URL` | `http://localhost:11434/api/generate` | Full Ollama generate endpoint used for the health check and epitaph requests. Point it at a remote Ollama host if needed. |
 | `OLLAMA_MODEL` | `gemma3:4b` | Gemma model tag passed to Ollama. Use any tag already listed by `ollama list`. |
+| `OLLAMA_TIMEOUT_MS` | `180000` | How long to wait for one local generation before the template epitaph is used. A 12B model on CPU can take a minute or more. |
 
 ## How it works
 
