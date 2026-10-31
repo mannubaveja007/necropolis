@@ -75,38 +75,38 @@ export function Tombstone({ pkg, index, onSelect }: TombstoneProps) {
     >
       <svg
         className={styles.slab}
-        viewBox="0 0 240 300"
+        viewBox="0 0 280 240"
         preserveAspectRatio="none"
         aria-hidden="true"
         focusable="false"
       >
-        <ellipse className={styles.ground} cx="120" cy="294" rx="104" ry="6" />
+        <ellipse className={styles.ground} cx="140" cy="236" rx="120" ry="5" />
         {isHaunted ? (
-          <circle className={styles.ghostGlow} cx="120" cy="148" r="86" />
+          <circle className={styles.ghostGlow} cx="140" cy="118" r="78" />
         ) : null}
         <path
           className={styles.body}
-          d="M30 274V98C30 51 70 24 120 24s90 27 90 74v176Z"
+          d="M40 212V46c0-14 10-24 24-24h152c14 0 24 10 24 24v166Z"
         />
         <path
           className={styles.inner}
-          d="M39 266V100c0-41 36-66 81-66s81 25 81 66v166"
+          d="M50 204V52c0-10 8-18 18-18h144c10 0 18 8 18 18v152"
         />
         {isHaunted ? (
-          <path className={styles.wisp} d="M150 42c14-18 36-10 44-26" />
+          <path className={styles.wisp} d="M182 42c12-16 32-9 39-23" />
         ) : null}
         {isDead ? (
           <>
-            <path className={styles.crack} d="M58 86l12 20-8 18 14 24-8 28" />
-            <path className={styles.crack} d="M158 56l-8 24 12 18-8 22" />
-            <path className={styles.crack} d="M70 106l18 6M76 148l-18 10" />
+            <path className={styles.crack} d="M70 70l10 16-7 14 12 20-7 22" />
+            <path className={styles.crack} d="M180 50l-6 20 10 14-6 18" />
+            <path className={styles.crack} d="M84 96l16 6M78 138l-16 8" />
           </>
         ) : null}
-        <path className={styles.plinth} d="M16 264h208l-8 28H24Z" />
+        <path className={styles.plinth} d="M20 204h240l-8 26H28Z" />
         {isDead ? (
           <>
-            <ellipse className={styles.moss} cx="52" cy="278" rx="30" ry="11" />
-            <ellipse className={styles.moss} cx="100" cy="285" rx="22" ry="7" />
+            <ellipse className={styles.moss} cx="66" cy="216" rx="28" ry="10" />
+            <ellipse className={styles.moss} cx="112" cy="222" rx="20" ry="6" />
           </>
         ) : null}
       </svg>
