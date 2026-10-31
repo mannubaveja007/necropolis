@@ -50,6 +50,5 @@ next-env.d.ts
 /.hallmark/shots/
 
 # licensed audio the user may add locally
-/public/audio/*.mp3
 /public/audio/*.m4a
 /public/audio/*.wav
