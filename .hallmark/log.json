@@ -1,0 +1,22 @@
+[
+ {
+  "shape": "Graveyard workbench",
+  "theme": "custom",
+  "axes": "dark/roman-serif/cool",
+  "hero": "centred register over the package.json slab",
+  "nav": "wordmark left, live Ollama state right",
+  "footer": "privacy line and two registry links",
+  "imagery": "none; headstones and carved data",
+  "sections": [
+   "landing",
+   "results",
+   "epitaph panel"
+  ],
+  "signature": "headstones that crack and grow moss as dependencies decay",
+  "waived": [],
+  "prompt": "Necropolis: package.json graveyard with Ollama epitaphs",
+  "entry": "necropolis",
+  "date": "2026-10-31",
+  "mode": "build"
+ }
+]

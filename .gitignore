@@ -45,3 +45,6 @@ next-env.d.ts
 
 # allow committing the env template
 !.env.example
+
+# hallmark render artifacts
+/.hallmark/shots/
