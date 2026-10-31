@@ -61,6 +61,77 @@ npm run typecheck
 npm run build
 ```
 
+## Architecture
+
+Necropolis is one Next.js app with three route handlers. The browser only renders; the registry and the model are both called server-side.
+
+```text
+┌──────────────────────────────────────────────────────────────────┐
+│ Browser — Next.js 16 client                                      │
+│ paste package.json → Raise the dead → graveyard                  │
+└──────────────────────────────┬───────────────────────────────────┘
+                               │ POST /api/scan
+                               ▼
+┌──────────────────────────────────────────────────────────────────┐
+│ Next.js route handlers (App Router, RSC)                         │
+│ POST /api/scan · POST /api/epitaph · GET /api/health             │
+└──────────────────────────────┬───────────────────────────────────┘
+                               │ Promise.all
+                               ▼
+┌──────────────────────────────────────────────────────────────────┐
+│ registry.npmjs.org — one GET per package                         │
+│ 5s timeout · latest · time[latest] · deprecated                  │
+└──────────────────────────────┬───────────────────────────────────┘
+                               │ statuses → headstones → click a stone
+                               ▼
+┌──────────────────────────────────────────────────────────────────┐
+│ Ollama — local Gemma, format:"json"                              │
+│ validate → memory cache → template fallback                      │
+└──────────────────────────────┬───────────────────────────────────┘
+                               ▼
+                               Epitaph panel · Markdown report
+```
+
+**The order of one scan:**
+
+1. `POST /api/scan` parses `dependencies` and `devDependencies`, dedupes them, and stops at 40 packages.
+2. Every package is fetched from `registry.npmjs.org` in parallel, with a 5-second timeout each.
+3. Each result becomes a fate: `alive`, `restless`, `haunted`, `dead` or `unknown`.
+4. The summary counts the fates and computes the Haunting Score.
+5. The browser paints the headstones; clicking one calls `POST /api/epitaph`.
+6. The epitaph is validated, cached, or replaced by the deterministic template.
+7. **Export graveyard report** builds the Markdown file in the browser.
+
+| Method | Route | Responsibility |
+| --- | --- | --- |
+| `POST` | `/api/scan` | Validate the manifest, resolve every package, return `{ packages, summary }` |
+| `POST` | `/api/epitaph` | Take five facts, call Ollama, validate JSON, cache, fall back |
+| `GET` | `/api/health` | Probe Ollama for the header dot |
+
+The project is deliberately small and ordered by responsibility:
+
+```text
+Necropolis/
+├── src/
+│   ├── app/
+│   │   ├── api/                    # scan, epitaph, health
+│   │   ├── globals.css             # tokens, fog, headstone styles
+│   │   ├── layout.tsx              # fonts and shell
+│   │   └── page.tsx                # landing and graveyard states
+│   ├── components/
+│   │   ├── tombstone.tsx           # SVG slab, cracks, moss, glow
+│   │   ├── tombstone-grid.tsx      # responsive grid
+│   │   ├── summary-bar.tsx         # counts and Haunting Score
+│   │   ├── epitaph-panel.tsx       # sheet, request, cache, fallback
+│   │   └── loading-graveyard.tsx   # skeletons
+│   └── lib/
+│       ├── npm.ts                  # parse, fetch, statuses, score
+│       ├── epitaph.ts              # prompt, cache, template
+│       ├── report.ts               # Markdown export
+│       └── types.ts                # shared contracts
+└── docs/screenshots/               # README and post images
+```
+
 ## How I Built It
 
 ### The AI
