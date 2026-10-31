@@ -59,7 +59,7 @@ Requires **Node.js 20.9+** and [Ollama](https://ollama.com/) running locally.
 | `dead` | Latest publish more than 2 years ago | ash, with cracks and moss |
 | `unknown` | 404, network error or timeout | cold slate, dashed outline |
 
-Deprecation wins over age: `request` is six years old and still **haunted**, not dead. The sample also includes `node-sass` and `left-pad` (haunted), `moment` and `express` (alive), and `react` (alive).
+Deprecation wins over age: `request` is 6.7 years old and still **haunted**, not dead. The sample also includes `node-sass` and `left-pad` (haunted), `moment` and `express` (alive), and `react` (alive).
 
 ### Haunting Score
 
@@ -103,7 +103,7 @@ Each package contributes a weight; the mean is scaled to 0–100. A graveyard of
 
 ## Configuration
 
-Both variables are optional. Copy `.env.example` to `.env.local`, then restart `npm run dev`.
+All three variables are optional. Copy `.env.example` to `.env.local`, then restart `npm run dev`.
 
 | Variable | Default | Purpose |
 | --- | --- | --- |
