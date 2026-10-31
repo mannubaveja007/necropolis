@@ -42,11 +42,18 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
+    // Browser extensions (and some browsers) inject attributes onto <html>
+    // before hydration. suppressHydrationWarning tolerates attribute
+    // differences only; mismatched markup still reports.
     <html
       lang="en"
       className={`dark ${display.variable} ${monoData.variable} ${geistSans.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="flex min-h-full flex-col bg-background text-foreground">
+      <body
+        className="flex min-h-full flex-col bg-background text-foreground"
+        suppressHydrationWarning
+      >
         <div className="fog" aria-hidden="true">
           <span className="fog__wisp fog__wisp--violet" />
           <span className="fog__wisp fog__wisp--green" />
