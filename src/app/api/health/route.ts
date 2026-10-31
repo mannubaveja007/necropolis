@@ -1,7 +1,6 @@
 import { ollamaEndpoint, ollamaModel } from "@/lib/epitaph";
 import type { HealthResponse } from "@/lib/types";
 
-export const runtime = "nodejs";
 
 const HEALTH_TIMEOUT_MS = 3000;
 

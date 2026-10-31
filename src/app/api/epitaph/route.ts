@@ -1,7 +1,6 @@
 import { epitaphFor, templateEpitaph } from "@/lib/epitaph";
 import type { Epitaph, EpitaphRequest } from "@/lib/types";
 
-export const runtime = "nodejs";
 
 const BAD_REQUEST = "Send a JSON body with non-empty name and version strings.";
 

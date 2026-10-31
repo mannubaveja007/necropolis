@@ -1,7 +1,6 @@
 import { parseDependencies, resolvePackage, summarize } from "@/lib/npm";
 import type { ScanResponse } from "@/lib/types";
 
-export const runtime = "nodejs";
 
 const BAD_REQUEST = "Send a JSON body with a packageJson string.";
 
