@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 import { Volume2, VolumeX, X } from "lucide-react";
 
@@ -243,7 +244,7 @@ function EpitaphContent({
 
   return (
     <>
-      <header className="border-b border-border/70 p-5 pr-14 sm:p-6 sm:pr-16">
+      <header className="shrink-0 border-b border-border/70 p-5 pr-14 sm:p-6 sm:pr-16">
         <h2
           id="epitaph-title"
           className="display min-w-0 break-words text-3xl leading-tight"
@@ -257,7 +258,7 @@ function EpitaphContent({
         </p>
       </header>
 
-      <div className="flex-1 overflow-y-auto p-5 sm:p-6">
+      <div className="min-h-0 flex-1 overflow-y-auto p-5 sm:p-6">
         {state.status === "loading" ? (
           <div className="flex flex-col gap-4">
             <EpitaphSkeleton />
@@ -333,7 +334,7 @@ function EpitaphContent({
       </div>
 
       {state.status === "ready" ? (
-        <footer className="border-t border-border/70 p-5 sm:p-6">
+        <footer className="shrink-0 border-t border-border/70 p-5 sm:p-6">
           <p className="text-xs text-muted-foreground">
             {state.epitaph.source === "ollama"
               ? "Written by Gemma via Ollama"
@@ -426,9 +427,9 @@ export function EpitaphPanel({ pkg, onClose, onEpitaph }: EpitaphPanelProps) {
 
   if (!open || !shownPkg) return null;
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-[60] grid place-items-center bg-background/75 p-4 backdrop-blur-sm sm:p-6"
+      className="fixed inset-0 z-[80] grid place-items-center bg-background/75 p-4 backdrop-blur-sm sm:p-6"
       role="presentation"
       onClick={onClose}
     >
@@ -467,11 +468,11 @@ export function EpitaphPanel({ pkg, onClose, onEpitaph }: EpitaphPanelProps) {
         </div>
 
         {haunted ? (
-          <div className="relative border-b border-border/70">
+          <div className="relative shrink-0 border-b border-border/70">
             <img
               src="/memes/coffin-dance.gif"
               alt="The coffin dance meme, played for a haunted package"
-              className="max-h-56 w-full object-cover"
+              className="max-h-[22vh] w-full object-cover"
             />
             <p className="absolute bottom-2 left-3 rounded bg-background/80 px-2 py-0.5 text-[11px] text-haunted">
               haunted · coffin cam
@@ -487,6 +488,7 @@ export function EpitaphPanel({ pkg, onClose, onEpitaph }: EpitaphPanelProps) {
           onEpitaph={onEpitaph}
         />
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
