@@ -2,7 +2,7 @@
 
 ## What I Built
 
-**Kabristan** turns a `package.json` into a graveyard.
+**Kabristan** turns a `package.json` into a Kabristan.
 
 Paste a manifest, press **Raise the dead**, and every dependency rises as an SVG headstone. Each stone is carved with the package name, the version you asked for, the real latest publish date from the npm registry, and how many years it has been resting. The stones are coloured by fate:
 
@@ -14,7 +14,7 @@ Paste a manifest, press **Raise the dead**, and every dependency rises as an SVG
 
 A summary band counts the five fates and computes a **Haunting Score** from 0 to 100. Click any stone and a local Gemma model, served through Ollama, writes a two-sentence epitaph and a one-sentence maintenance warning from five registry facts. The whole yard exports as a Markdown report.
 
-![Kabristan graveyard: seven headstones in a dark emerald mist, with version, last publish and years since publish carved into each stone](https://raw.githubusercontent.com/mannubaveja007/kabristan/main/docs/screenshots/headstones.png)
+![Kabristan Kabristan: seven headstones in a dark emerald mist, with version, last publish and years since publish carved into each stone](https://raw.githubusercontent.com/mannubaveja007/kabristan/main/docs/screenshots/headstones.png)
 
 My reading of **Ghost in the Machine** is literal: the machine is the dependency tree, and the ghosts are the packages nobody maintains any more. A `package.json` is a burial register we keep adding names to. Kabristan just makes the register visible, and lets a local model speak for the dead.
 
@@ -68,7 +68,7 @@ Kabristan is one Next.js app with three route handlers. The browser only renders
 ```text
 ┌──────────────────────────────────────────────────────────────────┐
 │ Browser — Next.js 16 client                                      │
-│ paste package.json → Raise the dead → graveyard                  │
+│ paste package.json → Raise the dead → Kabristan                  │
 └──────────────────────────────┬───────────────────────────────────┘
                                │ POST /api/scan
                                ▼
@@ -100,7 +100,7 @@ Kabristan is one Next.js app with three route handlers. The browser only renders
 4. The summary counts the fates and computes the Haunting Score.
 5. The browser paints the headstones; clicking one calls `POST /api/epitaph`.
 6. The epitaph is validated, cached, or replaced by the deterministic template.
-7. **Export graveyard report** builds the Markdown file in the browser.
+7. **Export Kabristan report** builds the Markdown file in the browser.
 
 | Method | Route | Responsibility |
 | --- | --- | --- |
@@ -117,13 +117,13 @@ Kabristan/
 │   │   ├── api/                    # scan, epitaph, health
 │   │   ├── globals.css             # tokens, fog, headstone styles
 │   │   ├── layout.tsx              # fonts and shell
-│   │   └── page.tsx                # landing and graveyard states
+│   │   └── page.tsx                # landing and Kabristan states
 │   ├── components/
 │   │   ├── tombstone.tsx           # SVG slab, cracks, moss, glow
 │   │   ├── tombstone-grid.tsx      # responsive grid
 │   │   ├── summary-bar.tsx         # counts and Haunting Score
 │   │   ├── epitaph-panel.tsx       # sheet, request, cache, fallback
-│   │   └── loading-graveyard.tsx   # skeletons
+│   │   └── loading-kabristan.tsx   # skeletons
 │   └── lib/
 │       ├── npm.ts                  # parse, fetch, statuses, score
 │       ├── epitaph.ts              # prompt, cache, template
@@ -152,6 +152,8 @@ The interface is built with the open-source **Hallmark** design skill, vendored 
 
 The stones are inline SVG so they can decay with the data: cracks and moss appear only on dead packages, a slow ghost glow only on haunted ones, and hover raises a candlelight wash at the base of the stone. Everything collapses under `prefers-reduced-motion`.
 
+Clicking a haunted stone opens the **coffin cam** in the center of the screen with a synthesized minor-key loop, then hands off to the epitaph panel. The loop is original Web Audio, not a sample of the original meme track, so the repository stays clean of licensed audio.
+
 I ran Hallmark's `sloplint` render sweep from 320 to 1920 pixels. It reports **0 FAIL, 0 WARN**, with two documented dismissals, the sheet scrim and the wrapping tombstone metadata.
 
 ### The agents
@@ -159,10 +161,10 @@ I ran Hallmark's `sloplint` render sweep from 320 to 1920 pixels. It reports **0
 I built Kabristan with three parallel subagents in the DeepSeek Harness, each in its own git worktree:
 
 - one for the API routes and the registry logic
-- one for the graveyard UI
+- one for the Kabristan UI
 - one for the Markdown report and documentation
 
-The work landed on three branches (`feat/api-core`, `feat/graveyard-ui`, `feat/report-docs`), each merged into `main` with a `--no-ff` merge commit. The history is conventional commits: `feat(scan)`, `fix(ui)`, `docs`, one logical change per commit.
+The work landed on three branches (`feat/api-core`, `feat/kabristan-ui`, `feat/report-docs`), each merged into `main` with a `--no-ff` merge commit. The history is conventional commits: `feat(scan)`, `fix(ui)`, `docs`, one logical change per commit.
 
 That workflow paid for itself. When the machine got slow I could stop all three, see exactly what each had written, and resume them without losing work.
 
@@ -182,11 +184,11 @@ That changes the privacy story completely. Dependency names are the most sensiti
 
 It also changes who can build this. There is no key to provision, no free-tier limit, no bill at the end of the month. A student on a five-year-old laptop can run a 3B model and get the whole experience. When the model is missing or too slow, the app still works, because the deterministic fallback does not depend on anyone's API being healthy.
 
-And it changes what the app can be. A closed API couples the product to one vendor's model, prompt format and failure modes. Here, `OLLAMA_MODEL` is one environment variable. Swap in a smaller Gemma, a bigger one, or a different open-weight model, and the graveyard still works. The design skill, the harness, and the code are all in the repository, so the whole thing can be read, forked and argued with.
+And it changes what the app can be. A closed API couples the product to one vendor's model, prompt format and failure modes. Here, `OLLAMA_MODEL` is one environment variable. Swap in a smaller Gemma, a bigger one, or a different open-weight model, and the Kabristan still works. The design skill, the harness, and the code are all in the repository, so the whole thing can be read, forked and argued with.
 
 ## My Agent Session
 
-The session lives in the git history rather than a recording. The three feature branches, their individual commits, and the merge commits that joined them to `main` are public, and they show the actual sequence: scaffold, design system, API core, graveyard UI, report and docs, and the fixes that came after testing against a real registry and a real local model.
+The session lives in the git history rather than a recording. The three feature branches, their individual commits, and the merge commits that joined them to `main` are public, and they show the actual sequence: scaffold, design system, API core, Kabristan UI, report and docs, and the fixes that came after testing against a real registry and a real local model.
 
 The harness also kept the work honest. Every agent had to run `tsc` and Vitest before committing, and the final integration had to survive a production build plus the Hallmark render sweep.
 
@@ -202,8 +204,8 @@ And this warning:
 
 > Use String.prototype.padStart() as the successor.
 
-It is not profound. It is just accurate, plain, and a little sad, which is exactly what a graveyard is for. A local model, given nothing but five facts, looked at a package that once took down half the JavaScript ecosystem and quietly noted that `padStart` won.
+It is not profound. It is just accurate, plain, and a little sad, which is exactly what a Kabristan is for. A local model, given nothing but five facts, looked at a package that once took down half the JavaScript ecosystem and quietly noted that `padStart` won.
 
 That is the ghost in the machine for me. Not a haunted chatbot, just the machine remembering what we buried, one dependency at a time.
 
-The graveyard is open. Bring your `package.json`.
+The Kabristan is open. Bring your `package.json`.

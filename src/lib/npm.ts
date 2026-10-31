@@ -78,7 +78,7 @@ export function statusOf(
   return "alive";
 }
 
-/** 0–100: the share of the graveyard that has decayed. Empty is 0. */
+/** 0–100: the share of the Kabristan that has decayed. Empty is 0. */
 export function hauntingScore(packages: ScannedPackage[]): number {
   if (packages.length === 0) return 0;
 

@@ -19,6 +19,7 @@ const styles = {
   status: "tomb-status",
   statusWord: "tomb-status-word",
   statusIcon: "tomb-status-icon",
+  meme: "tomb-meme",
   name: "tomb-name",
   meta: "tomb-meta",
   metaRow: "tomb-meta-row",
@@ -111,6 +112,15 @@ export function Tombstone({ pkg, index, onSelect }: TombstoneProps) {
           </>
         ) : null}
       </svg>
+
+      {isHaunted || isDead ? (
+        <img
+          src="/memes/coffin-dance.webp"
+          alt=""
+          aria-hidden="true"
+          className={styles.meme}
+        />
+      ) : null}
 
       <span className={styles.content}>
         <span className={styles.status}>

@@ -54,7 +54,7 @@ export function SiteHeader() {
             Kabristan
           </span>
           <span className="hidden text-sm text-muted-foreground sm:inline">
-            a graveyard for dependencies
+            a Kabristan for dependencies
           </span>
         </Link>
 

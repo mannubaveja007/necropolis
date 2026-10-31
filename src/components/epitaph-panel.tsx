@@ -267,14 +267,14 @@ function EpitaphContent({
               </div>
             ) : null}
 
-            <p className="display text-2xl leading-snug text-foreground sm:text-[1.7rem]">
+            <p className="display break-words text-2xl leading-snug text-foreground sm:text-[1.7rem]">
               {state.epitaph.epitaph}
             </p>
 
             {state.epitaph.warning ? (
               <aside className="rounded-lg border border-ember/40 bg-ember/5 p-4">
                 <p className="text-xs text-ember">warning</p>
-                <p className="mt-1 text-sm leading-relaxed text-foreground/90">
+                <p className="mt-1 break-words text-sm leading-relaxed text-foreground/90">
                   {state.epitaph.warning}
                 </p>
               </aside>

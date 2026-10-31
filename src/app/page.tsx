@@ -3,8 +3,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Ghost } from "lucide-react";
 
+import { CoffinCam } from "@/components/coffin-cam";
 import { EpitaphPanel } from "@/components/epitaph-panel";
-import { LoadingGraveyard } from "@/components/loading-graveyard";
+import { LoadingKabristan } from "@/components/loading-kabristan";
 import { SummaryBar } from "@/components/summary-bar";
 import { TombstoneGrid } from "@/components/tombstone-grid";
 import { Button } from "@/components/ui/button";
@@ -22,6 +23,8 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [selected, setSelected] = useState<ScannedPackage | null>(null);
   const [epitaphs, setEpitaphs] = useState<Record<string, Epitaph>>({});
+  const [coffinTrigger, setCoffinTrigger] = useState(0);
+  const [coffinPkg, setCoffinPkg] = useState<ScannedPackage | null>(null);
   const resultsRef = useRef<HTMLDivElement | null>(null);
 
   const loading = phase === "loading";
@@ -41,7 +44,7 @@ export default function Home() {
       });
       const data = (await res.json()) as ScanResponse & { error?: string };
       if (!res.ok) {
-        setError(data.error ?? "The graveyard rejected that package.json.");
+        setError(data.error ?? "The Kabristan rejected that package.json.");
         setPhase("idle");
         return;
       }
@@ -72,6 +75,24 @@ export default function Home() {
     setResult(null);
     setSelected(null);
     setError(null);
+  }, []);
+
+  const selectPackage = useCallback((pkg: ScannedPackage) => {
+    if (pkg.status === "haunted" || pkg.status === "dead") {
+      setSelected(null);
+      setCoffinPkg(pkg);
+      setCoffinTrigger((value) => value + 1);
+      return;
+    }
+    setSelected(pkg);
+  }, []);
+
+  const closeCoffinCam = useCallback(() => {
+    setCoffinTrigger(0);
+    setCoffinPkg((held) => {
+      if (held) setSelected(held);
+      return null;
+    });
   }, []);
 
   const recordEpitaph = useCallback((epitaph: Epitaph) => {
@@ -170,7 +191,7 @@ export default function Home() {
 
             {loading ? (
               <div className="mt-12">
-                <LoadingGraveyard count={6} />
+                <LoadingKabristan count={6} />
               </div>
             ) : null}
           </div>
@@ -179,9 +200,9 @@ export default function Home() {
         <section ref={resultsRef} className="scroll-mt-24 py-8 sm:py-12" aria-busy={loading}>
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h2 className="display text-4xl text-foreground sm:text-5xl">The graveyard</h2>
+              <h2 className="display text-4xl text-foreground sm:text-5xl">The Kabristan</h2>
               <p className="mt-2 text-sm text-muted-foreground">
-                {result.summary.total} grave{result.summary.total === 1 ? "" : "s"} raised from your
+                {result.summary.total} headstone{result.summary.total === 1 ? "" : "s"} raised from your
                 package.json
               </p>
             </div>
@@ -192,7 +213,7 @@ export default function Home() {
                 onClick={exportReport}
                 className="h-10 rounded-md border-border bg-transparent text-foreground hover:bg-accent"
               >
-                Export graveyard report
+                Export Kabristan report
               </Button>
               <Button
                 type="button"
@@ -210,7 +231,7 @@ export default function Home() {
           </div>
 
           <div className="mt-6">
-            <TombstoneGrid packages={result.packages} onSelect={setSelected} />
+            <TombstoneGrid packages={result.packages} onSelect={selectPackage} />
           </div>
         </section>
       )}
@@ -220,6 +241,8 @@ export default function Home() {
         onClose={() => setSelected(null)}
         onEpitaph={recordEpitaph}
       />
+
+      <CoffinCam trigger={coffinTrigger} onClose={closeCoffinCam} />
     </div>
   );
 }

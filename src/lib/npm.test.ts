@@ -143,7 +143,7 @@ describe("hauntingScore and summarize", () => {
     expect(hauntingScore(fixture)).toBe(59);
   });
 
-  it("returns 0 for an empty graveyard", () => {
+  it("returns 0 for an empty Kabristan", () => {
     expect(hauntingScore([])).toBe(0);
     expect(summarize([])).toEqual({
       total: 0,

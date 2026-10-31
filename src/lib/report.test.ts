@@ -63,7 +63,7 @@ describe("buildMarkdownReport", () => {
       generatedAt,
     });
 
-    expect(report).toContain("# Kabristan graveyard report");
+    expect(report).toContain("# Kabristan report");
     expect(report).toContain("Generated: 2026-10-31T12:34:56.789Z");
     expect(report).toContain(
       "**4 packages** · alive 1 · restless 0 · haunted 1 · dead 1 · unknown 1 · **Haunting Score: 62.5/100**",
@@ -157,7 +157,7 @@ describe("buildMarkdownReport", () => {
         unlisted: {
           name: "unlisted",
           version: "0.0.1",
-          epitaph: "Not part of this graveyard.",
+          epitaph: "Not part of this Kabristan.",
           warning: "Should never appear.",
           source: "template",
         },
@@ -195,7 +195,7 @@ describe("buildMarkdownReport", () => {
       epitaphs: {},
     });
 
-    expect(report).toContain("# Kabristan graveyard report");
+    expect(report).toContain("# Kabristan report");
     expect(report).toContain("**0 packages**");
     expect(report).toContain("**Haunting Score: 0/100**");
     expect(report).toContain(

@@ -98,7 +98,10 @@ describe("POST /api/epitaph", () => {
     const sent = JSON.parse(String(init?.body));
     const prompt = String(sent.prompt);
     expect(prompt).toBe(
-      `Facts: ${JSON.stringify(facts)}\nReturn JSON only.`,
+      `Facts: ${JSON.stringify({
+        ...facts,
+        lastPublish: facts.lastPublish ? facts.lastPublish.slice(0, 10) : null,
+      })}\nReturn JSON only.`,
     );
   });
 

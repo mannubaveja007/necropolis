@@ -91,7 +91,10 @@ describe("requestEpitaph", () => {
     expect(JSON.parse(String(init?.body))).toEqual({
       model: "gemma3:4b",
       system: SYSTEM_PROMPT,
-      prompt: `Facts: ${JSON.stringify(facts)}\nReturn JSON only.`,
+      prompt: `Facts: ${JSON.stringify({
+        ...facts,
+        lastPublish: facts.lastPublish ? facts.lastPublish.slice(0, 10) : null,
+      })}\nReturn JSON only.`,
       stream: false,
       format: "json",
       options: { temperature: 0.7 },
@@ -131,7 +134,7 @@ describe("requestEpitaph", () => {
     vi.stubGlobal(
       "fetch",
       vi.fn(async () =>
-        ollamaResponse(JSON.stringify({ epitaph: "Only half a grave." })),
+        ollamaResponse(JSON.stringify({ epitaph: "Only half an epitaph." })),
       ),
     );
 
@@ -235,7 +238,7 @@ describe("epitaphFor cache", () => {
     expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 
-  it("clears the cache between graveyards", async () => {
+  it("clears the cache between Kabristans", async () => {
     const fetchMock = vi.fn(async () =>
       ollamaResponse(JSON.stringify({ epitaph: "One.", warning: "One." })),
     );

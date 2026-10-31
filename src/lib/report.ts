@@ -92,7 +92,7 @@ function epitaphSection(
 }
 
 /**
- * Renders a deterministic Markdown graveyard report.
+ * Renders a deterministic Markdown Kabristan report.
  *
  * Packages keep their input order in both the status table and the epitaphs
  * section. Packages without an epitaph are omitted from the epitaphs section.
@@ -103,7 +103,7 @@ export function buildMarkdownReport({
   epitaphs,
   generatedAt,
 }: MarkdownReportInput): string {
-  const blocks: string[] = ["# Kabristan graveyard report"];
+  const blocks: string[] = ["# Kabristan report"];
 
   if (generatedAt) {
     const timestamp = generatedAt.getTime();

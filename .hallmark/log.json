@@ -1,6 +1,6 @@
 [
  {
-  "shape": "Graveyard workbench",
+  "shape": "Kabristan workbench",
   "theme": "custom",
   "axes": "dark/roman-serif/cool",
   "hero": "centred register over the package.json slab",
@@ -14,7 +14,7 @@
   ],
   "signature": "headstones that crack and grow moss as dependencies decay",
   "waived": [],
-  "prompt": "Kabristan: package.json graveyard with Ollama epitaphs",
+  "prompt": "Kabristan: package.json Kabristan with Ollama epitaphs",
   "entry": "kabristan",
   "date": "2026-10-31",
   "mode": "build"

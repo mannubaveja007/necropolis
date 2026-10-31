@@ -1,9 +1,9 @@
-/* Hallmark · shape: Graveyard workbench · genre: atmospheric · theme: custom · job: try · idea: "A package.json is read as a burial register, each dependency given a stone and a eulogy." · vibe: "green-black kabristan, marble, emerald, brass"
+/* Hallmark · shape: Kabristan workbench · genre: atmospheric · theme: custom · job: try · idea: "A package.json is read as a burial register, each dependency given a stone and a eulogy." · vibe: "green-black kabristan, marble, emerald, brass"
  * paper: #0a0d0b · accent: #86d6a8 · display: Cormorant Garamond · body: Geist · hero: centred register over the package.json slab · nav: wordmark left, live Ollama state right · footer: privacy line and two registry links · imagery: none; headstones and carved data carry the page · signature: headstones with ghost and skull marks that decay with the data
  * axes: dark/roman-serif/cool · posture: Settled · contrast: pass · fold: pass · v2.0.0 */
 /* Hallmark · dismissed 29 · the sheet scrim is the modal surface, not a decorative bloom */
 /* Hallmark · dismissed 49 · the tombstone meta wraps by design; the accessible name stays the package */
-/* Hallmark · pre-emit critique: P4 H4 E4 S3 R4 V3 · weakest: S, a graveyard of dependencies could be any devtool; led with real registry facts carved on every stone */
+/* Hallmark · pre-emit critique: P4 H4 E4 S3 R4 V3 · weakest: S, a Kabristan of dependencies could be any devtool; led with real registry facts carved on every stone */
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -96,7 +96,7 @@
   --sidebar-border: #2b362b;
   --sidebar-ring: #7fd0a2;
 
-  /* graveyard status palette */
+  /* Kabristan status palette */
   --alive: #8fe3b5;
   --restless: #d9bd80;
   --haunted: #b8b0e0;
@@ -406,6 +406,25 @@
   flex: none;
 }
 
+.tomb-meme {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  z-index: 2;
+  width: 4.6rem;
+  height: auto;
+  border: 1px solid color-mix(in oklab, var(--haunted) 40%, var(--border));
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.tomb-card:hover .tomb-meme,
+.tomb-card:focus-visible .tomb-meme {
+  opacity: 1;
+}
+
 .tomb-name {
   min-width: 0;
   color: var(--foreground);
@@ -559,6 +578,7 @@
   .tomb-slab,
   .tomb-name,
   .tomb-label,
+  .tomb-meme,
   .tomb-card::after {
     animation: none;
     transition: none;

@@ -23,7 +23,7 @@ export interface ScanSummary {
   haunted: number;
   dead: number;
   unknown: number;
-  /** 0–100: how haunted the graveyard is. Higher means more decay. */
+  /** 0–100: how haunted the Kabristan is. Higher means more decay. */
   hauntingScore: number;
 }
 

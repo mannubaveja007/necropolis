@@ -2,7 +2,7 @@
 
 > A quiet kabristan for your dependencies. Paste a `package.json`, and every package rises as a headstone with a registry-verified fate, a Haunting Score, and an epitaph written locally by Gemma through Ollama.
 
-<img src="docs/screenshots/headstones.png" alt="The graveyard: seven headstones under emerald mist, each carved with a package name, version, last publish date and years since publish" width="920" />
+<img src="docs/screenshots/headstones.png" alt="The Kabristan: seven headstones under emerald mist, each carved with a package name, version, last publish date and years since publish" width="920" />
 
 ---
 
@@ -11,7 +11,7 @@
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │ Browser — Next.js 16 client                                      │
-│ paste package.json → Raise the dead → graveyard                  │
+│ paste package.json → Raise the dead → Kabristan                  │
 └──────────────────────────────┬───────────────────────────────────┘
                                │ POST /api/scan
                                ▼
@@ -54,10 +54,10 @@ Kabristan/
 │   │   ├── api/                      # scan, epitaph and health route handlers
 │   │   ├── globals.css               # design tokens, fog, type, headstone styles
 │   │   ├── layout.tsx                # fonts, header and footer
-│   │   └── page.tsx                  # landing, scan and graveyard states
+│   │   └── page.tsx                  # landing, scan and Kabristan states
 │   ├── components/
 │   │   ├── epitaph-panel.tsx         # sheet, request, client cache, fallback banner
-│   │   ├── loading-graveyard.tsx     # summary and grid skeletons
+│   │   ├── loading-kabristan.tsx     # summary and grid skeletons
 │   │   ├── summary-bar.tsx           # counts and Haunting Score ring
 │   │   ├── tombstone.tsx             # SVG headstone: cracks, moss, ghost glow
 │   │   ├── tombstone-grid.tsx        # responsive grid
@@ -100,6 +100,7 @@ Deprecation outranks age: `request` is 6.7 years old and still **haunted**, not 
 - Every package is a `<button>` with an inline SVG slab, base plinth and carved meta: name, version, last publish, years since.
 - `dead` stones grow cracks and moss; `haunted` stones pulse a slow ghost glow; hover raises a candle glow instead of a generic lift.
 - Portrait on phones, four columns on desktop, and every animation collapses under `prefers-reduced-motion`.
+- Haunted and dead stones reveal the coffin cam on hover. Clicking one opens it centered, starts a short original synth loop, and hands off to the epitaph panel when it closes.
 
 ### 4. Epitaphs Written Locally
 - Clicking a stone sends **only five facts**: name, version, last publish, years since, deprecation message.
@@ -114,7 +115,7 @@ Deprecation outranks age: `request` is 6.7 years old and still **haunted**, not 
 - The header polls `/api/health` every 30 seconds and switches a green dot to red with the model name.
 
 ### 6. Markdown Export
-- **Export graveyard report** downloads a Markdown file: UTC generation time, totals with the Haunting Score, a status table, and one epitaph section per package opened.
+- **Export Kabristan report** downloads a Markdown file: UTC generation time, totals with the Haunting Score, a status table, and one epitaph section per package opened.
 - Table cells escape pipes and newlines; missing dates become em dashes; input order is preserved.
 
 ---
@@ -160,17 +161,17 @@ npm run dev
 
 Open <http://localhost:3000>. The header turns green once `/api/health` can reach Ollama.
 
-### 5. Raise Your First Graveyard
+### 5. Raise Your First Kabristan
 1. Press **Load sample**, or paste any `package.json` with `dependencies` or `devDependencies`.
 2. Press **Raise the dead**.
 3. Read the stones, then click one to summon its epitaph.
-4. Press **Export graveyard report** to keep the yard.
+4. Press **Export Kabristan report** to keep the yard.
 
 <img src="docs/screenshots/landing.png" alt="Landing page with a package.json textarea and the Raise the dead button" width="820" />
 
 ---
 
-## Sample Graveyard & Scan Management
+## Sample Kabristan & Scan Management
 
 The sample manifest is built to exercise the whole yard:
 
@@ -178,7 +179,7 @@ The sample manifest is built to exercise the whole yard:
 2. **`node-sass`** — deprecated in favour of `sass`, haunted.
 3. **`left-pad`** — deprecated with a named successor, haunted.
 4. **`moment`**, **`express`**, **`react`** — recent publishes, alive.
-5. **`typescript`** — the seventh grave, pulled from `devDependencies`.
+5. **`typescript`** — the seventh headstone, pulled from `devDependencies`.
 
 **Bury another** returns to the gate without clearing your epitaph cache. Scans are capped at 40 packages, and packages beyond the cap, or packages the registry cannot answer for, appear as `unknown` rather than blocking the rest.
 
@@ -206,7 +207,7 @@ The design sweep is clean at 320–1920 px: **0 FAIL, 0 WARN**, with two recorde
 
 ## Design System & Hallmark Principles
 
-The interface follows a custom kabristan direction built with the **Hallmark v2.0.0** skill: a quiet South Asian graveyard at dusk, with ghost and bone marks.
+The interface follows a custom kabristan direction built with the **Hallmark v2.0.0** skill: a quiet South Asian Kabristan at dusk, with ghost and bone marks.
 
 - **Tokens only**: green-black `#0a0d0b`, marble `#ece5d4`, emerald `#86d6a8`, brass `#d9bd80`, spirit violet `#b8b0e0` only for haunted stones.
 - **Typography**: Cormorant Garamond for display, Geist for text, JetBrains Mono for carved data such as versions and dates.

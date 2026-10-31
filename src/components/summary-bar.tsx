@@ -73,7 +73,7 @@ export function SummaryBar({ summary }: SummaryBarProps) {
 
   return (
     <section
-      aria-label="Graveyard summary"
+      aria-label="Kabristan summary"
       className="rounded-xl border border-border/70 bg-card/60 px-5 py-4 sm:px-6"
     >
       <div className="flex flex-wrap items-center gap-x-8 gap-y-5">
@@ -82,7 +82,7 @@ export function SummaryBar({ summary }: SummaryBarProps) {
             {summary.total}
           </span>
           <span className="text-xs text-muted-foreground">
-            grave{summary.total === 1 ? "" : "s"}
+            headstone{summary.total === 1 ? "" : "s"}
           </span>
         </div>
 

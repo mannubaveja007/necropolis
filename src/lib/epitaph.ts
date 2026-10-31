@@ -93,7 +93,10 @@ export async function requestEpitaph(
       body: JSON.stringify({
         model: ollamaModel(),
         system: SYSTEM_PROMPT,
-        prompt: `Facts: ${JSON.stringify(facts)}\nReturn JSON only.`,
+        prompt: `Facts: ${JSON.stringify({
+          ...facts,
+          lastPublish: facts.lastPublish ? facts.lastPublish.slice(0, 10) : null,
+        })}\nReturn JSON only.`,
         stream: false,
         format: "json",
         options: { temperature: 0.7 },

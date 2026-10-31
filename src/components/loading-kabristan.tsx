@@ -1,12 +1,12 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-interface LoadingGraveyardProps {
+interface LoadingKabristanProps {
   count?: number;
 }
 
 const PULSE = "animate-none motion-safe:animate-pulse";
 
-export function LoadingGraveyard({ count = 6 }: LoadingGraveyardProps) {
+export function LoadingKabristan({ count = 6 }: LoadingKabristanProps) {
   const tombstones = Array.from({ length: count }, (_, index) => index);
 
   return (
@@ -16,7 +16,7 @@ export function LoadingGraveyard({ count = 6 }: LoadingGraveyardProps) {
       aria-busy="true"
       className="flex flex-col gap-6"
     >
-      <span className="sr-only">Raising the graveyard</span>
+      <span className="sr-only">Raising the Kabristan</span>
 
       <section
         aria-hidden="true"
