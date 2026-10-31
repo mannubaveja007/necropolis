@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Ghost } from "lucide-react";
 
-import { CoffinCam } from "@/components/coffin-cam";
 import { EpitaphPanel } from "@/components/epitaph-panel";
 import { LoadingKabristan } from "@/components/loading-kabristan";
 import { SummaryBar } from "@/components/summary-bar";
@@ -23,8 +22,6 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [selected, setSelected] = useState<ScannedPackage | null>(null);
   const [epitaphs, setEpitaphs] = useState<Record<string, Epitaph>>({});
-  const [coffinTrigger, setCoffinTrigger] = useState(0);
-  const [coffinPkg, setCoffinPkg] = useState<ScannedPackage | null>(null);
   const resultsRef = useRef<HTMLDivElement | null>(null);
 
   const loading = phase === "loading";
@@ -78,21 +75,7 @@ export default function Home() {
   }, []);
 
   const selectPackage = useCallback((pkg: ScannedPackage) => {
-    if (pkg.status === "haunted" || pkg.status === "dead") {
-      setSelected(null);
-      setCoffinPkg(pkg);
-      setCoffinTrigger((value) => value + 1);
-      return;
-    }
     setSelected(pkg);
-  }, []);
-
-  const closeCoffinCam = useCallback(() => {
-    setCoffinTrigger(0);
-    setCoffinPkg((held) => {
-      if (held) setSelected(held);
-      return null;
-    });
   }, []);
 
   const recordEpitaph = useCallback((epitaph: Epitaph) => {
@@ -241,8 +224,6 @@ export default function Home() {
         onClose={() => setSelected(null)}
         onEpitaph={recordEpitaph}
       />
-
-      <CoffinCam trigger={coffinTrigger} onClose={closeCoffinCam} />
     </div>
   );
 }

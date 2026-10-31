@@ -2,16 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import { Volume2, VolumeX, X } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
+import { startCoffinSong, type CoffinSong } from "@/lib/coffin-song";
 import type { Epitaph, ScannedPackage } from "@/lib/types";
 
 type PanelState =
@@ -215,16 +210,19 @@ function EpitaphContent({
 
   return (
     <>
-      <SheetHeader className="gap-1 border-b border-border/70 p-5 pr-12 sm:p-6 sm:pr-14">
-        <SheetTitle className="display min-w-0 break-words text-3xl leading-tight">
+      <header className="border-b border-border/70 p-5 pr-14 sm:p-6 sm:pr-16">
+        <h2
+          id="epitaph-title"
+          className="display min-w-0 break-words text-3xl leading-tight"
+        >
           {name}
-        </SheetTitle>
-        <SheetDescription className="carved flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-foreground">
+        </h2>
+        <p className="carved mt-1 flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-foreground">
           <span>version {version}</span>
           <span>last publish {formatPublished(lastPublish)}</span>
           <span>years since {formatYears(yearsSince)}</span>
-        </SheetDescription>
-      </SheetHeader>
+        </p>
+      </header>
 
       <div className="flex-1 overflow-y-auto p-5 sm:p-6">
         {state.status === "loading" ? <EpitaphSkeleton /> : null}
@@ -284,13 +282,13 @@ function EpitaphContent({
       </div>
 
       {state.status === "ready" ? (
-        <SheetFooter className="border-t border-border/70 p-5 sm:p-6">
+        <footer className="border-t border-border/70 p-5 sm:p-6">
           <p className="text-xs text-muted-foreground">
             {state.epitaph.source === "ollama"
               ? "Written by Gemma via Ollama"
               : "Template epitaph"}
           </p>
-        </SheetFooter>
+        </footer>
       ) : null}
     </>
   );
@@ -300,8 +298,8 @@ export function EpitaphPanel({ pkg, onClose, onEpitaph }: EpitaphPanelProps) {
   const cache = useRef(new Map<string, Epitaph>());
   const [lastPkg, setLastPkg] = useState<ScannedPackage | null>(pkg);
 
-  // Adjust during render so a new selection never flashes the previous
-  // epitaph, and keep the last package while the sheet animates closed.
+  // Keep the last package while the dialog closes, so the content does not
+  // flash empty during the exit.
   const pkgKey = pkg ? `${pkg.name}@${pkg.version}` : null;
   const lastKey = lastPkg ? `${lastPkg.name}@${lastPkg.version}` : null;
   if (pkg && pkgKey !== lastKey) {
@@ -309,25 +307,135 @@ export function EpitaphPanel({ pkg, onClose, onEpitaph }: EpitaphPanelProps) {
   }
 
   const shownPkg = pkg ?? lastPkg;
+  const open = pkg !== null;
+  const haunted =
+    shownPkg?.status === "haunted" || shownPkg?.status === "dead";
+  const [muted, setMuted] = useState(false);
+  const songRef = useRef<CoffinSong | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const songKey = shownPkg ? `${shownPkg.name}@${shownPkg.version}` : null;
+
+  useEffect(() => {
+    if (!open || !haunted) return;
+
+    let cancelled = false;
+    setMuted(false);
+
+    // A licensed track dropped at /audio/coffin.mp3 (gitignored) wins;
+    // otherwise the original synth loop plays.
+    const audio = new Audio("/audio/coffin.mp3");
+    audio.loop = true;
+    audio.volume = 0.35;
+    audioRef.current = audio;
+    audio
+      .play()
+      .then(() => {
+        if (cancelled) audio.pause();
+      })
+      .catch(() => {
+        if (cancelled) return;
+        const song = startCoffinSong();
+        songRef.current = song;
+      });
+
+    return () => {
+      cancelled = true;
+      audio.pause();
+      audioRef.current = null;
+      songRef.current?.stop();
+      songRef.current = null;
+    };
+  }, [open, haunted, songKey]);
+
+  function toggleSound() {
+    setMuted((current) => {
+      const next = !current;
+      if (audioRef.current) audioRef.current.muted = next;
+      songRef.current?.setMuted(next);
+      return next;
+    });
+  }
+
+  useEffect(() => {
+    if (!open) return;
+
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape") onClose();
+    }
+
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", onKey);
+
+    return () => {
+      document.body.style.overflow = previous;
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open, onClose]);
+
+  if (!open || !shownPkg) return null;
 
   return (
-    <Sheet
-      open={pkg !== null}
-      onOpenChange={(open) => {
-        if (!open) onClose();
-      }}
+    <div
+      className="fixed inset-0 z-[60] grid place-items-center bg-background/75 p-4 backdrop-blur-sm sm:p-6"
+      role="presentation"
+      onClick={onClose}
     >
-      <SheetContent side="right" className="w-full gap-0 sm:max-w-md">
-        {shownPkg ? (
-          <EpitaphContent
-            key={`${shownPkg.name}@${shownPkg.version}`}
-            pkg={shownPkg}
-            active={pkg !== null}
-            cache={cache}
-            onEpitaph={onEpitaph}
-          />
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="epitaph-title"
+        onClick={(event) => event.stopPropagation()}
+        className="relative flex max-h-[88vh] w-[min(94vw,42rem)] flex-col overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-slab)]"
+      >
+        <div className="absolute right-3 top-3 z-10 flex items-center gap-0.5 rounded-md border border-border/70 bg-background/85 p-0.5 backdrop-blur-sm">
+          {haunted ? (
+            <button
+              type="button"
+              onClick={toggleSound}
+              aria-pressed={!muted}
+              aria-label={muted ? "Unmute the coffin cam" : "Mute the coffin cam"}
+              className="rounded p-2 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none"
+            >
+              {muted ? (
+                <VolumeX className="size-4" aria-hidden />
+              ) : (
+                <Volume2 className="size-4" aria-hidden />
+              )}
+            </button>
+          ) : null}
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close the epitaph"
+            autoFocus
+            className="rounded p-2 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none"
+          >
+            <X className="size-4" aria-hidden />
+          </button>
+        </div>
+
+        {haunted ? (
+          <div className="relative border-b border-border/70">
+            <img
+              src="/memes/coffin-dance.webp"
+              alt="The coffin dance meme, played for a haunted package"
+              className="max-h-56 w-full object-cover"
+            />
+            <p className="absolute bottom-2 left-3 rounded bg-background/80 px-2 py-0.5 text-[11px] text-haunted">
+              haunted · coffin cam
+            </p>
+          </div>
         ) : null}
-      </SheetContent>
-    </Sheet>
+
+        <EpitaphContent
+          key={`${shownPkg.name}@${shownPkg.version}`}
+          pkg={shownPkg}
+          active={open}
+          cache={cache}
+          onEpitaph={onEpitaph}
+        />
+      </div>
+    </div>
   );
 }
