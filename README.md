@@ -14,7 +14,7 @@ Paste a `package.json`. Every dependency rises as a headstone, and a local Gemma
 
 [Quickstart](#quickstart) · [How it works](#how-it-works) · [API](#api-routes) · [Configuration](#configuration) · [Troubleshooting](#troubleshooting)
 
-<img src="docs/screenshots/results.png" alt="The graveyard: seven headstones under violet fog, each carved with a package name, version, last publish date and years since publish" width="900" />
+<img src="docs/screenshots/graveyard.png" alt="The graveyard: seven headstones under violet fog, each carved with a package name, version, last publish date and years since publish" width="900" />
 
 </div>
 
