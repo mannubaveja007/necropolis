@@ -1,5 +1,7 @@
-/* Hallmark · v2.0.0 · necropolis · custom gothic direction (user-specified) · stamp: 2026-10-31 */
-/* Critique: the graveyard is the material — slabs, carved data, fog between the rows. */
+/* Hallmark · shape: Graveyard workbench · genre: atmospheric · theme: custom · job: try · idea: "A package.json is read as a burial register, each dependency given a stone and a eulogy." · vibe: "near-black crypt, violet fog, moonlit green"
+ * paper: #0b0a12 · accent: #a78bfa · display: Cormorant Garamond · body: Geist · hero: centred register over the package.json slab · nav: wordmark left, live Ollama state right · footer: privacy line and two registry links · imagery: none; headstones and carved data carry the page · signature: the SVG headstone row that cracks and grows moss as dependencies decay
+ * axes: dark/roman-serif/cool · posture: Settled · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S3 R4 V3 · weakest: S, a graveyard of dependencies could be any devtool; led with real registry facts carved on every stone */
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -100,6 +102,12 @@
   --unknown: #8291ad;
   --moss: #6f8f5e;
   --ember: #e8b27a;
+
+  /* fog and slab tokens: the only colour literals live here */
+  --fog-violet: rgba(167, 139, 250, 0.16);
+  --fog-green: rgba(143, 227, 181, 0.1);
+  --fog-ash: rgba(236, 231, 243, 0.05);
+  --shadow-slab: 0 24px 80px -40px rgba(0, 0, 0, 0.9);
 }
 
 @layer base {
@@ -126,6 +134,21 @@
     outline: 2px solid var(--ring);
     outline-offset: 3px;
   }
+
+  button {
+    cursor: pointer;
+  }
+
+  button:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+
+  scrollbar-color: var(--border) var(--background);
+  caret-color: var(--primary);
 }
 
 /* ---- fog: slow, transform-only drift; content stays visible without scripts ---- */
@@ -150,13 +173,13 @@
 .fog__wisp--violet {
   top: -30vmax;
   left: -10vmax;
-  background: radial-gradient(circle at center, rgba(167, 139, 250, 0.16), transparent 62%);
+  background: radial-gradient(circle at center, var(--fog-violet), transparent 62%);
 }
 
 .fog__wisp--green {
   right: -20vmax;
   bottom: -35vmax;
-  background: radial-gradient(circle at center, rgba(143, 227, 181, 0.1), transparent 62%);
+  background: radial-gradient(circle at center, var(--fog-green), transparent 62%);
   animation-duration: 64s;
   animation-delay: -18s;
 }
@@ -166,7 +189,7 @@
   top: 35%;
   width: 50vmax;
   height: 50vmax;
-  background: radial-gradient(circle at center, rgba(236, 231, 243, 0.05), transparent 60%);
+  background: radial-gradient(circle at center, var(--fog-ash), transparent 60%);
   animation-duration: 80s;
   animation-delay: -40s;
 }
