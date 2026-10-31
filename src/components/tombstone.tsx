@@ -4,7 +4,26 @@ import type { CSSProperties } from "react";
 
 import type { PackageStatus, ScannedPackage } from "@/lib/types";
 
-import styles from "./tombstone.module.css";
+const styles = {
+  card: "tomb-card",
+  slab: "tomb-slab",
+  ground: "tomb-ground",
+  ghostGlow: "tomb-ghost-glow",
+  body: "tomb-body",
+  inner: "tomb-inner",
+  wisp: "tomb-wisp",
+  crack: "tomb-crack",
+  plinth: "tomb-plinth",
+  moss: "tomb-moss",
+  content: "tomb-content",
+  status: "tomb-status",
+  statusWord: "tomb-status-word",
+  name: "tomb-name",
+  meta: "tomb-meta",
+  metaRow: "tomb-meta-row",
+  label: "tomb-label",
+  value: "tomb-value",
+} as const;
 
 interface TombstoneProps {
   pkg: ScannedPackage;
